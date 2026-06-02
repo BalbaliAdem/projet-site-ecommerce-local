@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style2.css">
+</head>
+<body>
+    
+    <div class="form-container">
+    <form action="" method="get" onsubmit="return verifier()">
+        <h1>Commander</h1>
+        <input type="text" placeholder="Nom" id="nomp">
+        <input type="text" placeholder="Prenom" id="prenom">
+        <input type="email" placeholder="Email" id="email">
+        <input type="tel" placeholder="Telephone" id="telephone">
+        <input type="text" placeholder="Localisation" id="localisation">
+        <input type="text" name="" id="date" readonly onfocus="dd()" placeholder="Date de commande" required>
+        <p>Votre commande : <Strong id="nom"></Strong></p>
+        <p>Votre prix de commande : $<Strong id="prix"></Strong></p>
+        
+        <input type="reset" value="Annuler" onclick="retourner()" class="button">
+        <input type="submit" value="Commander" onclick="extraire()" class="button">
+
+
+    </form>
+    </div>
+    <script src="js/commande.js"></script>
+</body>
+</html>

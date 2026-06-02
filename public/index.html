@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SuperMarket Together</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+  <style>
+   
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; background: #f0f2f5; color: #333; display: flex; flex-direction: column; min-height: 100vh; }
+
+    
+    .navbar {
+      background: #111827;
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+    .navbar .logo {
+      color: #fff;
+      font-size: 1.15rem;
+      font-weight: 700;
+      white-space: nowrap;
+      margin-right: 2.5rem;
+      flex-shrink: 0;
+    }
+    .navbar .logo span { color: #38bdf8; }
+
+    
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      height: 64px;
+      gap: 0;
+    }
+    .nav-menu > li {
+      position: relative;
+      height: 100%;
+    }
+    .nav-menu > li > a {
+      color: #d1d5db;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      height: 100%;
+      padding: 0 1.1rem;
+      cursor: pointer;
+      transition: color .2s, background .2s;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+    }
+    .nav-menu > li > a i.arrow { font-size: 13px; transition: transform .25s; }
+    .nav-menu > li:hover > a {
+      color: #fff;
+      background: rgba(255,255,255,0.07);
+      border-bottom-color: #38bdf8;
+    }
+    .nav-menu > li:hover > a i.arrow { transform: rotate(180deg); }
+
+    
+    .dropdown {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+      min-width: 230px;
+      padding: 8px;
+      opacity: 0;
+      pointer-events: none;
+     
+    }
+    .nav-menu > li:hover .dropdown {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+    .dropdown-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .09em;
+      color: #9ca3af;
+      padding: 6px 12px 4px;
+    }
+    .dropdown a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      color: #374151;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: background .15s, color .15s;
+    }
+    .dropdown a i { font-size: 18px; color: #38bdf8; flex-shrink: 0; }
+    .dropdown a:hover { background: #f0f9ff; color: #0284c7; }
+    .dropdown a:hover i { color: #0284c7; }
+    .dropdown-footer {
+      background: #f9fafb;
+      border-top: 1px solid #f3f4f6;
+      margin: 6px -8px -8px;
+      padding: 8px 16px;
+      border-radius: 0 0 12px 12px;
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    
+    .page-wrapper {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    
+    .hero {
+      background: linear-gradient(135deg, #1e3a5f 0%, #0f2027 100%);
+      color: #fff;
+      padding: 2rem 2.5rem 1.5rem;
+    }
+    .hero h1 { font-size: 1.8rem; margin-bottom: 0.3rem; }
+    .hero p { color: #94a3b8; font-size: 0.95rem; }
+
+    
+    .main-content {
+      flex: 1;
+      padding: 0;
+    }
+  .main-content iframe {
+  width: 100%;
+  height: 100vh;
+  border: none;
+  border-radius: 12px;
+  background: #fff;
+}
+
+    
+    footer {
+      background: #111827;
+      color: #9ca3af;
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.82rem;
+    }
+    footer a { color: #38bdf8; text-decoration: none; }
+    .footer-info { display: flex; gap: 2rem; flex-wrap: wrap; }
+    .footer-info span { display: flex; align-items: center; gap: 6px; }
+    .footer-info i { color: #38bdf8; }
+    #qr { width: 70px; height: 70px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+
+  
+  <nav class="navbar">
+    <div class="logo">🛍️ Super<span>Market</span> Together</div>
+
+    <ul class="nav-menu">
+
+      
+      <li>
+        <a>
+          <i class="ti ti-shirt"></i> Vêtements
+          <i class="ti ti-chevron-down arrow"></i>
+        </a>
+        <div class="dropdown">
+          <div class="dropdown-label">Catégories</div>
+          <a href="Vetements.html" target="contenu"><i class="ti ti-man"></i> Homme</a>
+          <a href="femme.html" target="contenu"><i class="ti ti-woman"></i> Femme</a>
+          <a href="enfant.html" target="contenu"><i class="ti ti-baby-carriage"></i> Enfant</a>
+          <div class="dropdown-footer">Pantalons · Chemises · Vestes · Robes</div>
+        </div>
+      </li>
+
+      
+      <li>
+        <a>
+          <i class="ti ti-device-gamepad-2"></i> Gaming
+          <i class="ti ti-chevron-down arrow"></i>
+        </a>
+        <div class="dropdown">
+          <div class="dropdown-label">Catégories</div>
+          <a href="pc.html" target="contenu"><i class="ti ti-device-desktop"></i> PC &amp; Accessoires</a>
+          <a href="electronique.html" target="contenu"><i class="ti ti-device-gamepad"></i> Consoles</a>
+          <a href="audio.html" target="contenu"><i class="ti ti-headphones"></i> Audio &amp; Casques</a>
+          <div class="dropdown-footer">Manettes · Claviers · Écrans · Souris</div>
+        </div>
+      </li>
+
+      
+      <li>
+        <a>
+          <i class="ti ti-package"></i> Produits
+          <i class="ti ti-chevron-down arrow"></i>
+        </a>
+        <div class="dropdown">
+          <div class="dropdown-label">Catégories</div>
+          <a href="electronique.html" target="contenu"><i class="ti ti-bolt"></i> Électronique</a>
+          <a href="chaussures.html" target="contenu"><i class="ti ti-shoe"></i> Chaussures</a>
+          <a href="Accessories.html" target="contenu"><i class="ti ti-crown"></i> Accessoires</a>
+          <div class="dropdown-footer">Fours · TV · Montres · Chapeaux</div>
+        </div>
+      </li>
+
+      
+      <li>
+        <a>
+          <i class="ti ti-mail"></i> Contact
+          <i class="ti ti-chevron-down arrow"></i>
+        </a>
+        <div class="dropdown">
+          <div class="dropdown-label">Nous joindre</div>
+          <a href="contact.html" target="contenu"><i class="ti ti-message-circle"></i> Formulaire contact</a>
+          <a href="contact.html" target="contenu"><i class="ti ti-map-pin"></i> Localisation</a>
+          <div class="dropdown-footer">sud, Tunisie · 99 988 777</div>
+        </div>
+      </li>
+
+    </ul>
+  </nav>
+
+  
+  <div class="page-wrapper">
+
+    <header class="hero">
+      <h1>Bienvenu dans SuperMarket Together</h1>
+      <p>Trouvez les meilleurs produits par catégorie.</p>
+    </header>
+
+    <div class="main-content">
+      <iframe src="tout.html" name="contenu"></iframe>
+    </div>
+
+    <footer>
+      <div class="footer-info">
+        <span><i class="ti ti-mail"></i> SuperMarketTogether@SuperMarket.com</span>
+        <span><i class="ti ti-phone"></i> 99 988 777</span>
+        <span><i class="ti ti-map-pin"></i> sud, Tunisie</span>
+      </div>
+      <p>&copy; 2025 SuperMarket Together. Tous droits réservés.</p>
+      <img id="qr" src="./images/welcome_magazine_qr.png" alt="QR Code">
+    </footer>
+
+  </div>
+
+</body>
+</html>
