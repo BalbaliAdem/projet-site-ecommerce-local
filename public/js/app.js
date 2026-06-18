@@ -4,7 +4,7 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 
-// Servir les fichiers statiques (HTML, CSS, JS, images)
+
 app.use(express.static(__dirname));
 
 app.get('/', (req, res) => {
