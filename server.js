@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 
-// ─── LOG TOUTES LES REQUETES ENTRANTES ──────────────────────────────────────
+// LOG TOUTES LES REQUETES ENTRANTES 
 app.use((req, res, next) => {
     console.log("─────────────────────────────────────────");
     console.log(`[REQUETE] ${req.method} ${req.url}`);
@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
 });
 
 
-// ─── INSCRIPTION ────────────────────────────────────────────────────────────
+//INSCRIPTION 
 app.post("/api/inscription", async (req, res) => {
     console.log("[INSCRIPTION] Données reçues :", req.body);
 
@@ -80,7 +80,7 @@ app.post("/api/inscription", async (req, res) => {
 });
 
 
-// ─── CONNEXION ───────────────────────────────────────────────────────────────
+//CONNEXION 
 app.post("/api/connexion", async (req, res) => {
     console.log("[CONNEXION] Données reçues :", { email: req.body.email, mot_de_passe: req.body.mot_de_passe ? "****" : "NON" });
 
@@ -124,7 +124,7 @@ app.post("/api/connexion", async (req, res) => {
 });
 
 
-// ─── COMMANDE ────────────────────────────────────────────────────────────────
+//COMMANDE 
 app.post("/api/commande", async (req, res) => {
     console.log("[COMMANDE] Données reçues :", req.body);
 
@@ -178,7 +178,7 @@ app.post("/api/commande", async (req, res) => {
 
 
 
-// ─── ADMIN : CONNEXION ───────────────────────────────────────────────────────
+// ADMIN : CONNEXION 
 app.post("/api/admin/connexion", async (req, res) => {
     const { email, mot_de_passe } = req.body;
     if (!email || !mot_de_passe)
@@ -208,7 +208,7 @@ app.post("/api/admin/connexion", async (req, res) => {
 });
 
 
-// ─── ADMIN : LISTE UTILISATEURS ─────────────────────────────────────────────
+//ADMIN : LISTE UTILISATEURS 
 app.get("/api/admin/utilisateurs", async (req, res) => {
     try {
         const rows = await db.query(
@@ -222,7 +222,7 @@ app.get("/api/admin/utilisateurs", async (req, res) => {
 });
 
 
-// ─── ADMIN : LISTE COMMANDES ─────────────────────────────────────────────────
+//ADMIN : LISTE COMMANDES 
 app.get("/api/admin/commandes", async (req, res) => {
     try {
         const rows = await db.query(
@@ -236,7 +236,7 @@ app.get("/api/admin/commandes", async (req, res) => {
 });
 
 
-// ─── ADMIN : STATS ───────────────────────────────────────────────────────────
+//ADMIN : STATS 
 app.get("/api/admin/stats", async (req, res) => {
     try {
         const [uRows] = await db.query("SELECT COUNT(*) AS total FROM utilisateurs");
@@ -259,7 +259,5 @@ app.get("/api/admin/stats", async (req, res) => {
 
 const PORT = 3000;
 app.listen(PORT, () => {
-    console.log("═══════════════════════════════════════════");
     console.log(`  Serveur lancé sur http://localhost:${PORT}`);
-    console.log("═══════════════════════════════════════════");
 });
