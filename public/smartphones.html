@@ -6,6 +6,7 @@
     <title>Électronique</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/script.js"></script>
+    <script src="stock.js"></script>
 </head>
 <body>
 <div class="produits-grid">
@@ -75,5 +76,11 @@
     #A56{width: 65%;
     height: 65%;}
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    afficherStockProduits(11);
+  });
+</script>
 </body>
 </html>

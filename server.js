@@ -255,6 +255,66 @@ app.get("/api/admin/stats", async (req, res) => {
     }
 });
 
+// Variantes (taille + couleur + stock) d'un vêtement
+app.get("/api/produit/:id/variantes", async (req, res) => {
+    try {
+        const rows = await db.query(
+            `SELECT id_variante, taille, couleur, quantite
+             FROM produit_variantes WHERE id_produit = ?
+             ORDER BY FIELD(taille,'XS','S','M','L','XL','XXL','38','39','40','41','42','43','44'), couleur`,
+            [parseInt(req.params.id)]
+        );
+        res.json({ success: true, variantes: rows });
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
+
+// Décrémenter le stock d'une variante après commande
+app.post("/api/stock/decrementer", async (req, res) => {
+    const { id_variante } = req.body;
+    try {
+        await db.query(
+            "UPDATE produit_variantes SET quantite = GREATEST(0, quantite - 1) WHERE id_variante = ?",
+            [id_variante]
+        );
+        res.json({ success: true });
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
+
+
+// STOCK : liste des produits d'une sous-catégorie (non-vêtements)
+app.get("/api/produits/sous-categorie/:id", async (req, res) => {
+    try {
+        const rows = await db.query(
+            `SELECT id_produit, nom_produit, quantite
+             FROM produits_stock
+             WHERE id_sous_categorie = ?`,
+            [parseInt(req.params.id)]
+        );
+        res.json({ success: true, produits: rows });
+    } catch (err) {
+        console.error("[STOCK] ERREUR :", err.message);
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
+
+// STOCK : décrémenter le stock d'un produit simple après commande
+app.post("/api/stock/decrementer-simple", async (req, res) => {
+    const { nom_produit, id_sous_categorie } = req.body;
+    try {
+        await db.query(
+            `UPDATE produits_stock SET quantite = GREATEST(0, quantite - 1)
+             WHERE nom_produit = ? AND id_sous_categorie = ?`,
+            [nom_produit, id_sous_categorie]
+        );
+        res.json({ success: true });
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
 
 
 const PORT = 3000;

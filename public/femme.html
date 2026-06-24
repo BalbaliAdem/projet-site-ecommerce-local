@@ -1,96 +1,306 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Femme</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/script.js"></script>
+    <style>
+      /* ─── Boutons taille ─── */
+      .tailles { display:flex; flex-wrap:wrap; gap:5px; margin:6px 0; }
+      .btn-taille {
+        min-width:34px; height:30px; padding:0 7px;
+        border:1.5px solid #d1d5db; border-radius:6px;
+        background:#fff; font-size:12px; font-weight:600;
+        cursor:pointer; color:#374151; transition:.15s;
+      }
+      .btn-taille:hover:not(.epuise){ border-color:#6366f1; color:#6366f1; }
+      .btn-taille.selected{ background:#6366f1; border-color:#6366f1; color:#fff; }
+      .btn-taille.epuise{ background:#f3f4f6; color:#ccc; border-color:#e5e7eb; cursor:not-allowed; text-decoration:line-through; }
+
+      /* ─── Boutons couleur ─── */
+      .couleurs { display:flex; flex-wrap:wrap; gap:5px; margin:4px 0 8px; }
+      .btn-couleur {
+        width:22px; height:22px; border-radius:50%;
+        border:2px solid transparent; cursor:pointer; transition:.15s;
+        position:relative;
+      }
+      .btn-couleur:hover:not(.epuise){ transform:scale(1.2); }
+      .btn-couleur.selected{ border-color:#6366f1; transform:scale(1.15); }
+      .btn-couleur.epuise{ opacity:.3; cursor:not-allowed; }
+      .btn-couleur[title]:hover::after{
+        content:attr(title); position:absolute; bottom:26px; left:50%;
+        transform:translateX(-50%); background:#1f2937; color:#fff;
+        font-size:10px; padding:2px 6px; border-radius:4px; white-space:nowrap;
+      }
+
+      /* ─── Labels section ─── */
+      .lbl { font-size:10px; font-weight:700; color:#9ca3af; text-transform:uppercase; letter-spacing:.4px; }
+
+      /* ─── Badge stock ─── */
+      .badge-stock {
+        display:inline-block; font-size:11px; font-weight:600;
+        padding:2px 8px; border-radius:20px; margin:5px 0 2px;
+      }
+      .s-ok   { background:#dcfce7; color:#16a34a; }
+      .s-bas  { background:#fef9c3; color:#a16207; }
+      .s-zero { background:#fee2e2; color:#dc2626; }
+
+      /* ─── Info sélection ─── */
+      .sel-info { font-size:11px; min-height:16px; margin:3px 0 6px; color:#6b7280; }
+      .sel-info.ok   { color:#16a34a; font-weight:600; }
+      .sel-info.warn { color:#d97706; font-weight:600; }
+      .sel-info.err  { color:#dc2626; font-weight:600; }
+
+      /* ─── Carte épuisée ─── */
+      .pc.tout-epuise { opacity:.65; }
+      .pc.tout-epuise .pc-actions { display:none; }
+      .epuise-banner {
+        position:absolute; top:10px; right:-8px;
+        background:#dc2626; color:#fff; font-size:10px; font-weight:700;
+        padding:3px 10px; border-radius:4px; transform:rotate(3deg);
+        box-shadow:0 2px 6px rgba(220,38,38,.35); z-index:3;
+      }
+      .pc { position:relative; }
+    </style>
 </head>
 <body>
-    <div class="produits-grid">
-  <div class="pc" onclick="commander('Robe ','109.99','./images/robe.webp')">
-    <img src="./images/robe.webp" alt="Robe long">
-    <h3>Robe long</h3>
-    <p>$109.99</p>
-  </div>
-  
-  <div class="pc" onclick="commander('set djeans ','100','./images/setdjeans.jpg')">
-    <img src="./images/setdjeans.jpg" alt="set djeans">
-    <h3>set djeans</h3>
-    <p>$100</p>
-  </div>
-  <div class="pc" onclick="commander('robe blanc','90.99','./images/téléchargement.webp')">
-    <img src="./images/téléchargement.webp" alt="robe blanc">
-    <h3>robe blanc</h3>
-    <p>$90.99</p>
-  </div>
-   <div class="pc" onclick="commander('Baby Pink Corset Dress|Soft Aesthetic ','50.99','./images/roberose.webp')">
-    <img src="./images/roberose.jpg" alt="Roberose">
-    <h3>Robe rose</h3>
-    <p>$50.99</p>
-  </div>
-  <div class="pc" onclick="commander('robe satin ','150.99','./images/robesatin.webp')">
-    <img src="./images/robesatin.webp" alt="robe satin">
-    <h3>Robe satin</h3>
-    <p>$150.99</p>
-  </div>
-  <div class="pc" onclick="commander('robelong','80','./images/robelong.jpg')">
-    <img src="./images/robelong.jpg">
-    <h3>robe chic</h3>
-    <p>$80</p>
-    </div>
-     <div class="pc" onclick="commander('jupe','150.99','./images/jupe.webp')">
-    <img src="./images/jupe.webp" alt="jupe blanc">
-    <h3>jupe blanc</h3>
-    <p>$90</p>
-    </div>
-     <div class="pc" onclick="commander('jupe vert','50.50','./images/jupevert.jpg')">
-    <img src="./images/jupevert.jpg" alt="jupe vert ">
-    <h3>jupe vert</h3>
-    <p>$50.50</p>
-    </div>
-     <div class="pc" onclick="commander('pullhivers','70.50','./images/pullhivers.jpg')">
-    <img src="./images/pullhivers.jpg">
-    <h3>pull hivers</h3>
-    <p>$70.50</p>
-    </div>
-    <div class="pc" onclick="commander('pullete','70.50','./images/pullete.jpg')">
-    <img src="./images/pullete.jpg" alt="pullete">
-    <h3>pull ete</h3>
-    <p>$60.50</p>
-    </div>
-      <div class="pc" onclick="commander('pantalonsapince','100','./images/pantalonapince.jpg')">
-    <img src="./images/pantalonapince.jpg">
-    <h3>pantalons a pince</h3>
-    <p>$100</p>
-    </div>
-      <div class="pc" onclick="commander('Pantalon large femme musulmane - Pantalon ample, Palazzo, jupe culotte','90.50','./images/pantalonlarge.jpg')">
-    <img src="./images/pantalonlarge.jpg">
-    <h3>pantalonlarge</h3>
-    <p>$90.50</p>
-    </div>
-     <div class="pc" onclick="commander('cachecol','20.50','./images/cachecolfemme.jpg')">
-    <img src="./images/cachecolfemme.jpg">
-    <h3>cachecolfemme</h3>
-    <p>$20.50</p>
-    </div>
-    <div class="pc" onclick="commander('pantalon ','30.50','./images/pantalonf.jpg')">
-    <img src="./images/pantalonf.jpg" alt="pantalon">
-    <h3>pantalon</h3>
-    <p>$30.50</p></div>
-    <div class="pc" onclick="commander('burkinni','60','./images/burkinni.jpg')">
-    <img src="./images/burkini.jpg">
-    <h3>burkinni</h3>
-    <p>$60</p>
-    
-  </div>
-    </div>
-     
-    
+<div class="produits-grid">
 
- 
-  
+  <!-- ══ FEMME ══ -->
+  <div class="pc" data-id="13" data-nom="Robe long" data-prix="109.99" data-img="./images/robe.webp">
+    <img src="./images/robe.webp" alt="Robe long">
+    <h3>Robe long</h3><p>$109.99</p>
+  </div>
+
+  <div class="pc" data-id="14" data-nom="set djeans" data-prix="100" data-img="./images/setdjeans.jpg">
+    <img src="./images/setdjeans.jpg" alt="set djeans">
+    <h3>set djeans</h3><p>$100</p>
+  </div>
+
+  <div class="pc" data-id="15" data-nom="robe blanc" data-prix="90.99" data-img="./images/téléchargement.webp">
+    <img src="./images/téléchargement.webp" alt="robe blanc">
+    <h3>robe blanc</h3><p>$90.99</p>
+  </div>
+
+  <div class="pc" data-id="16" data-nom="Robe rose" data-prix="50.99" data-img="./images/roberose.jpg">
+    <img src="./images/roberose.jpg" alt="Robe rose">
+    <h3>Robe rose</h3><p>$50.99</p>
+  </div>
+
+  <div class="pc" data-id="17" data-nom="Robe satin" data-prix="150.99" data-img="./images/robesatin.webp">
+    <img src="./images/robesatin.webp" alt="robe satin">
+    <h3>Robe satin</h3><p>$150.99</p>
+  </div>
+
+  <div class="pc" data-id="18" data-nom="robe chic" data-prix="80" data-img="./images/robelong.jpg">
+    <img src="./images/robelong.jpg" alt="robe chic">
+    <h3>robe chic</h3><p>$80</p>
+  </div>
+
+  <div class="pc" data-id="19" data-nom="jupe blanc" data-prix="90" data-img="./images/jupe.webp">
+    <img src="./images/jupe.webp" alt="jupe blanc">
+    <h3>jupe blanc</h3><p>$90</p>
+  </div>
+
+  <div class="pc" data-id="20" data-nom="jupe vert" data-prix="50.50" data-img="./images/jupevert.jpg">
+    <img src="./images/jupevert.jpg" alt="jupe vert">
+    <h3>jupe vert</h3><p>$50.50</p>
+  </div>
+
+  <div class="pc" data-id="21" data-nom="pull hivers" data-prix="70.50" data-img="./images/pullhivers.jpg">
+    <img src="./images/pullhivers.jpg" alt="pull hivers">
+    <h3>pull hivers</h3><p>$70.50</p>
+  </div>
+
+  <div class="pc" data-id="22" data-nom="pull ete" data-prix="60.50" data-img="./images/pullete.jpg">
+    <img src="./images/pullete.jpg" alt="pull ete">
+    <h3>pull ete</h3><p>$60.50</p>
+  </div>
+
+  <div class="pc" data-id="23" data-nom="pantalons a pince" data-prix="100" data-img="./images/pantalonapince.jpg">
+    <img src="./images/pantalonapince.jpg" alt="pantalons a pince">
+    <h3>pantalons a pince</h3><p>$100</p>
+  </div>
+
+  <div class="pc" data-id="24" data-nom="pantalonlarge" data-prix="90.50" data-img="./images/pantalonlarge.jpg">
+    <img src="./images/pantalonlarge.jpg" alt="pantalon large">
+    <h3>pantalonlarge</h3><p>$90.50</p>
+  </div>
+
+  <div class="pc" data-id="25" data-nom="cachecolfemme" data-prix="20.50" data-img="./images/cachecolfemme.jpg">
+    <img src="./images/cachecolfemme.jpg" alt="cachecol femme">
+    <h3>cachecolfemme</h3><p>$20.50</p>
+  </div>
+
+  <div class="pc" data-id="26" data-nom="pantalon" data-prix="30.50" data-img="./images/pantalonf.jpg">
+    <img src="./images/pantalonf.jpg" alt="pantalon">
+    <h3>pantalon</h3><p>$30.50</p>
+  </div>
+
+  <div class="pc" data-id="27" data-nom="burkinni" data-prix="60" data-img="./images/burkini.jpg">
+    <img src="./images/burkini.jpg" alt="burkinni">
+    <h3>burkinni</h3><p>$60</p>
+  </div>
+
 </div>
+
+<!-- ══ SÉLECTEUR intégré dans chaque carte (injecté par JS) ══ -->
+<script>
+const COULEUR_CSS = {
+  'Noir':'#1f2937','Blanc':'#f1f5f9','Gris':'#9ca3af',
+  'Bleu':'#3b82f6','Rouge':'#ef4444','Vert':'#22c55e',
+  'Marron':'#92400e','Rose':'#f472b6','Beige':'#d4a17a',
+  'Jaune':'#facc15','Violet':'#a855f7','Orange':'#f97316'
+};
+
+document.querySelectorAll('.pc[data-id]').forEach(async carte => {
+  const id   = carte.dataset.id;
+  const nom  = carte.dataset.nom;
+  const prix = carte.dataset.prix;
+  const img  = carte.dataset.img;
+
+  // Charger les variantes
+  let variantes = [];
+  try {
+    const r = await fetch(`/api/produit/${id}/variantes`);
+    const d = await r.json();
+    variantes = d.success ? d.variantes : [];
+  } catch(e) {}
+
+  const totalStock = variantes.reduce((s,v) => s + v.quantite, 0);
+
+  // Badge stock global
+  let badgeHtml = '';
+  if (totalStock === 0)     badgeHtml = '<span class="badge-stock s-zero">⛔ Épuisé</span>';
+  else if (totalStock <= 5) badgeHtml = `<span class="badge-stock s-bas">⚠️ Plus que ${totalStock}</span>`;
+  else                      badgeHtml = '<span class="badge-stock s-ok">✅ En stock</span>';
+
+  carte.querySelector('p').insertAdjacentHTML('afterend', badgeHtml);
+
+  if (totalStock === 0) {
+    carte.classList.add('tout-epuise');
+    carte.insertAdjacentHTML('beforeend', '<span class="epuise-banner">ÉPUISÉ</span>');
+    return; // pas de sélecteur
+  }
+
+  // Tailles et couleurs disponibles
+  const tailles  = [...new Set(variantes.map(v => v.taille))];
+  const couleurs = [...new Set(variantes.map(v => v.couleur))];
+
+  // Construire le sélecteur
+  const sel = document.createElement('div');
+  sel.className = 'variante-sel';
+
+  sel.innerHTML = `
+    <div class="lbl">Taille</div>
+    <div class="tailles">
+      ${tailles.map(t => {
+        const stk = variantes.filter(v => v.taille===t).reduce((s,v)=>s+v.quantite,0);
+        return `<button class="btn-taille${stk===0?' epuise':''}" data-t="${t}">${t}</button>`;
+      }).join('')}
+    </div>
+    <div class="lbl">Couleur</div>
+    <div class="couleurs">
+      ${couleurs.map(c => {
+        const stk = variantes.filter(v => v.couleur===c).reduce((s,v)=>s+v.quantite,0);
+        const bg  = COULEUR_CSS[c]||'#e5e7eb';
+        const brd = c==='Blanc'?'outline:1.5px solid #d1d5db;':'';
+        return `<span class="btn-couleur${stk===0?' epuise':''}" data-c="${c}" title="${c}" style="background:${bg};${brd}"></span>`;
+      }).join('')}
+    </div>
+    <div class="sel-info" id="info-${id}"></div>
+    <div class="pc-actions">
+      <button class="btn-panier btn-panier-active" onclick="event.stopPropagation();ajouterVariante('${id}','${nom}','${prix}','${img}',false)">
+        <i class="ti ti-shopping-cart-plus"></i> Panier
+      </button>
+      <button class="btn-commander-direct" onclick="event.stopPropagation();ajouterVariante('${id}','${nom}','${prix}','${img}',true)">
+        <i class="ti ti-bolt"></i> Acheter
+      </button>
+    </div>`;
+
+  carte.appendChild(sel);
+
+  // État sélection
+  let selT = null, selC = null;
+
+  function majInfo() {
+    const el = document.getElementById('info-'+id);
+    if (!selT && !selC) { el.textContent=''; el.className='sel-info'; return; }
+    if (!selT) { el.textContent='Choisir une taille'; el.className='sel-info'; return; }
+    if (!selC) { el.textContent='Choisir une couleur'; el.className='sel-info'; return; }
+    const v = variantes.find(x => x.taille===selT && x.couleur===selC);
+    if (!v || v.quantite===0) {
+      el.textContent='⛔ Épuisé pour cette combinaison'; el.className='sel-info err';
+    } else if (v.quantite<=3) {
+      el.textContent=`⚠️ Plus que ${v.quantite} disponible`; el.className='sel-info warn';
+    } else {
+      el.textContent=`✅ ${v.quantite} en stock`; el.className='sel-info ok';
+    }
+  }
+
+  // Clics taille
+  sel.querySelectorAll('.btn-taille:not(.epuise)').forEach(b => {
+    b.addEventListener('click', e => {
+      e.stopPropagation();
+      sel.querySelectorAll('.btn-taille').forEach(x => x.classList.remove('selected'));
+      b.classList.add('selected');
+      selT = b.dataset.t;
+      // Mettre à jour couleurs épuisées pour cette taille
+      sel.querySelectorAll('.btn-couleur').forEach(bc => {
+        const v = variantes.find(x => x.taille===selT && x.couleur===bc.dataset.c);
+        bc.classList.toggle('epuise', !v || v.quantite===0);
+      });
+      majInfo();
+    });
+  });
+
+  // Clics couleur
+  sel.querySelectorAll('.btn-couleur:not(.epuise)').forEach(b => {
+    b.addEventListener('click', e => {
+      e.stopPropagation();
+      sel.querySelectorAll('.btn-couleur').forEach(x => x.classList.remove('selected'));
+      b.classList.add('selected');
+      selC = b.dataset.c;
+      majInfo();
+    });
+  });
+
+  // Stocker état dans la carte pour les boutons
+  carte._getSelection = () => ({ selT, selC, variantes });
+});
+
+// Ajouter au panier ou commander avec la variante choisie
+function ajouterVariante(id, nom, prix, img, acheter) {
+  const carte = document.querySelector(`.pc[data-id="${id}"]`);
+  if (!carte._getSelection) return;
+  const { selT, selC, variantes } = carte._getSelection();
+
+  if (!selT || !selC) {
+    const el = document.getElementById('info-'+id);
+    el.textContent = '⚠️ Choisir une taille et une couleur'; el.className='sel-info err';
+    return;
+  }
+  const v = variantes.find(x => x.taille===selT && x.couleur===selC);
+  if (!v || v.quantite===0) {
+    const el = document.getElementById('info-'+id);
+    el.textContent = '⛔ Épuisé pour cette combinaison'; el.className='sel-info err';
+    return;
+  }
+
+  const nomComplet = `${nom} - Taille ${selT} / ${selC}`;
+  fetch('/api/stock/decrementer', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ id_variante: v.id_variante })
+  });
+
+  if (acheter) {
+    commander(nomComplet, prix, img);
+  } else {
+    ajouterAuPanier(nomComplet, prix, img);
+  }
+}
+</script>
 </body>
 </html>

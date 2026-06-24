@@ -375,12 +375,15 @@
     .footer-info span { display: flex; align-items: center; gap: 6px; }
     .footer-info i { color: #38bdf8; }
     #qr { width: 70px; height: 70px; border-radius: 8px; }
+    #logo {width: 5%;
+    height: 100%;}
   </style>
 </head>
 <body>
-
+  
   <nav class="navbar">
-    <div class="logo">🛍️ Super<span>Market</span> Together</div>
+    <img id="logo" src="images/logo all in one (2).png" alt="">
+    <div class="logo"> ALL <span>- IN -</span> ONE</div>
 
     <ul class="nav-menu">
       <li>
@@ -457,10 +460,10 @@
     </button>
   </nav>
 
-  <!-- ══ OVERLAY ══ -->
+  <!--OVERLAY-->
   <div class="cart-overlay" id="cart-overlay" onclick="fermerPanier()"></div>
 
-  <!-- ══ TIROIR PANIER ══ -->
+  <!--TIROIR PANIER-->
   <div class="cart-drawer" id="cart-drawer">
     <div class="cart-header">
       <h2><i class="ti ti-shopping-cart"></i> Mon Panier</h2>
@@ -485,17 +488,17 @@
       </button>
     </div>
   </div>
-
-  <!-- ══ TOAST ══ -->
+    
+  <!--TOAST-->
   <div class="toast" id="toast">
     <i class="ti ti-circle-check"></i>
     <span id="toast-msg">Article ajouté !</span>
   </div>
 
-  <!-- ══ CONTENU ══ -->
+  <!--CONTENU-->
   <div class="page-wrapper">
     <header class="hero">
-      <h1>Bienvenu dans SuperMarket Together</h1>
+      <h1>Bienvenu dans ALL-IN-ONE</h1>
       <p>Trouvez les meilleurs produits par catégorie.</p>
     </header>
     <div class="main-content">
@@ -503,17 +506,17 @@
     </div>
     <footer>
       <div class="footer-info">
-        <span><i class="ti ti-mail"></i> SuperMarketTogether@SuperMarket.com</span>
+        <span><i class="ti ti-mail"></i> ALL-IN-ONE@SuperMarket.com</span>
         <span><i class="ti ti-phone"></i> 99 988 777</span>
         <span><i class="ti ti-map-pin"></i> sud, Tunisie</span>
       </div>
-      <p>&copy; 2025 SuperMarket Together. Tous droits réservés.</p>
+      <p>&copy; 2026 ALL-IN-ONE. Tous droits réservés.</p>
       <img id="qr" src="./images/welcome_magazine_qr.png" alt="QR Code">
     </footer>
   </div>
 
   <script>
-    // ── Panier (localStorage) ──────────────────────
+    // Panier (localStorage)
     function getPanier() {
       try { return JSON.parse(localStorage.getItem("panier")) || []; }
       catch(e) { return []; }
