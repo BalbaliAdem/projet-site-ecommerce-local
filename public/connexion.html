@@ -245,6 +245,14 @@
           document.getElementById('form-section').style.display = 'none';
           document.getElementById('welcome-box').style.display = 'block';
 
+          // Notifier la page parente (index.html) que l'utilisateur est connecté
+          if (window.parent && window.parent !== window) {
+            window.parent.postMessage({
+              type: "utilisateur-connecte",
+              utilisateur: data.utilisateur
+            }, "*");
+          }
+
           // Compte à rebours 3 secondes puis redirection
           let secondes = 3;
           const timer = setInterval(() => {

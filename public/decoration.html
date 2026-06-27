@@ -5,86 +5,256 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Décoration</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/buttons.css">
     <script src="js/script.js"></script>
-</head>
+    <style>
+      /* ─── Badge stock global (toujours visible) ─── */
+      .badge-stock {
+        display:inline-block; font-size:11px; font-weight:600;
+        padding:2px 8px; border-radius:20px; margin:5px 0 2px;
+      }
+      .s-ok   { background:#dcfce7; color:#16a34a; }
+      .s-bas  { background:#fef9c3; color:#a16207; }
+      .s-zero { background:#fee2e2; color:#dc2626; }
 
+      /* ─── Badge stock détaillé (visible après clic sur la carte) ─── */
+      .stock-detail {
+        display:none;
+        align-items:center; gap:5px;
+        font-size:12px; font-weight:700;
+        padding:4px 12px; border-radius:20px;
+        margin:4px 0 6px;
+      }
+      .stock-detail.visible { display:inline-flex; }
+      .stock-detail.sd-ok   { background:#dcfce7; color:#16a34a; }
+      .stock-detail.sd-bas  { background:#fef9c3; color:#a16207; }
+      .stock-detail.sd-zero { background:#fee2e2; color:#dc2626; }
+
+      /* ─── Carte épuisée ─── */
+      .pc { position:relative; cursor:pointer; }
+      .pc.tout-epuise { opacity:.65; pointer-events:none; }
+      .pc.tout-epuise .pc-actions { display:none; }
+      .epuise-banner {
+        position:absolute; top:10px; right:-8px;
+        background:#dc2626; color:#fff; font-size:10px; font-weight:700;
+        padding:3px 10px; border-radius:4px; transform:rotate(3deg);
+        box-shadow:0 2px 6px rgba(220,38,38,.35); z-index:3;
+      }
+
+      /* ─── Carte active (sélectionnée) ─── */
+      .pc.active-card {
+        outline: 2px solid #6366f1;
+        box-shadow: 0 0 0 4px rgba(99,102,241,.12);
+      }
+    </style>
+</head>
 <body>
 
 <div class="produits-grid">
 
-    <div class="pc" onclick="commander('Miroir Rond Design','89.99')">
-        <img src="./images/maison/miroir rond.jpg" alt="Miroir Rond">
-        <h3>Miroir Rond Design</h3>
-        <p>$89.99</p>
-    </div>
+  <div class="pc" data-id="25" data-nom="Miroir Rond Design" data-prix="89.99" data-img="./images/maison/miroir rond.jpg">
+    <img src="./images/maison/miroir rond.jpg" alt="Miroir Rond">
+    <h3>Miroir Rond Design</h3>
+    <p>$89.99</p>
+  </div>
 
-    <div class="pc" onclick="commander('Horloge Murale Moderne','49.99')">
-        <img src="./images/maison/horloge murale.jpg" alt="Horloge Murale">
-        <h3>Horloge Murale Moderne</h3>
-        <p>$49.99</p>
-    </div>
+  <div class="pc" data-id="26" data-nom="Horloge Murale Moderne" data-prix="49.99" data-img="./images/maison/horloge murale.jpg">
+    <img src="./images/maison/horloge murale.jpg" alt="Horloge Murale">
+    <h3>Horloge Murale Moderne</h3>
+    <p>$49.99</p>
+  </div>
 
-    <div class="pc" onclick="commander('Vase Décoratif','39.99')">
-        <img src="./images/maison/vase decoratif.jpg" alt="Vase Décoratif">
-        <h3>Vase Décoratif</h3>
-        <p>$39.99</p>
-    </div>
+  <div class="pc" data-id="27" data-nom="Vase Décoratif" data-prix="39.99" data-img="./images/maison/vase decoratif.jpg">
+    <img src="./images/maison/vase decoratif.jpg" alt="Vase Décoratif">
+    <h3>Vase Décoratif</h3>
+    <p>$39.99</p>
+  </div>
 
-    <div class="pc" onclick="commander('Cadre Photo Élégant','29.99')">
-        <img src="./images/maison/cadre photo.jpg" alt="Cadre Photo">
-        <h3>Cadre Photo Élégant</h3>
-        <p>$29.99</p>
-    </div>
+  <div class="pc" data-id="28" data-nom="Cadre Photo Élégant" data-prix="29.99" data-img="./images/maison/cadre photo.jpg">
+    <img src="./images/maison/cadre photo.jpg" alt="Cadre Photo">
+    <h3>Cadre Photo Élégant</h3>
+    <p>$29.99</p>
+  </div>
 
-    <div class="pc" onclick="commander('Plante Artificielle','24.99')">
-        <img src="./images/maison/plante artificielle.jpg" alt="Plante Artificielle">
-        <h3>Plante Artificielle</h3>
-        <p>$24.99</p>
-    </div>
+  <div class="pc" data-id="29" data-nom="Plante Artificielle" data-prix="24.99" data-img="./images/maison/plante artificielle.jpg">
+    <img src="./images/maison/plante artificielle.jpg" alt="Plante Artificielle">
+    <h3>Plante Artificielle</h3>
+    <p>$24.99</p>
+  </div>
 
-    <div class="pc" onclick="commander('Lampe de Table Moderne','69.99')">
-        <img src="./images/maison/lampe table.jpg" alt="Lampe de Table">
-        <h3>Lampe de Table Moderne</h3>
-        <p>$69.99</p>
-    </div>
+  <div class="pc" data-id="30" data-nom="Lampe de Table Moderne" data-prix="69.99" data-img="./images/maison/lampe table.jpg">
+    <img src="./images/maison/lampe table.jpg" alt="Lampe de Table">
+    <h3>Lampe de Table Moderne</h3>
+    <p>$69.99</p>
+  </div>
 
-    <div class="pc" onclick="commander('Guirlande LED Décorative','19.99')">
-        <img src="./images/maison/guirlande led.jpg" alt="Guirlande LED">
-        <h3>Guirlande LED Décorative</h3>
-        <p>$19.99</p>
-    </div>
+  <div class="pc" data-id="31" data-nom="Guirlande LED Décorative" data-prix="19.99" data-img="./images/maison/guirlande led.jpg">
+    <img src="./images/maison/guirlande led.jpg" alt="Guirlande LED">
+    <h3>Guirlande LED Décorative</h3>
+    <p>$19.99</p>
+  </div>
 
-    <div class="pc" onclick="commander('Statue Moderne','79.99')">
-        <img src="./images/maison/statue moderne.jpg" alt="Statue Moderne">
-        <h3>Statue Moderne</h3>
-        <p>$79.99</p>
-    </div>
+  <div class="pc" data-id="32" data-nom="Statue Moderne" data-prix="79.99" data-img="./images/maison/statue moderne.jpg">
+    <img src="./images/maison/statue moderne.jpg" alt="Statue Moderne">
+    <h3>Statue Moderne</h3>
+    <p>$79.99</p>
+  </div>
 
-    <div class="pc" onclick="commander('Lot de Bougies Parfumées','34.99')">
-        <img src="./images/maison/bougies parfumees.jpg" alt="Bougies">
-        <h3>Lot de Bougies Parfumées</h3>
-        <p>$34.99</p>
-    </div>
+  <div class="pc" data-id="33" data-nom="Lot de Bougies Parfumées" data-prix="34.99" data-img="./images/maison/bougies parfumees.jpg">
+    <img src="./images/maison/bougies parfumees.jpg" alt="Bougies">
+    <h3>Lot de Bougies Parfumées</h3>
+    <p>$34.99</p>
+  </div>
 
-    <div class="pc" onclick="commander('Panneau Décoratif Mural','59.99')">
-        <img src="./images/maison/panneau mural.jpg" alt="Panneau Mural">
-        <h3>Panneau Décoratif Mural</h3>
-        <p>$59.99</p>
-    </div>
+  <div class="pc" data-id="34" data-nom="Panneau Décoratif Mural" data-prix="59.99" data-img="./images/maison/panneau mural.jpg">
+    <img src="./images/maison/panneau mural.jpg" alt="Panneau Mural">
+    <h3>Panneau Décoratif Mural</h3>
+    <p>$59.99</p>
+  </div>
 
-    <div class="pc" onclick="commander('lampe murale','24.99')">
-        <img src="./images/maison/lampe murale.jpg" alt="lampe murale">
-        <h3>Lampe Murale</h3>
-        <p>$24.99</p>
-    </div>
+  <div class="pc" data-id="35" data-nom="Lampe Murale" data-prix="24.99" data-img="./images/maison/lampe murale.jpg">
+    <img src="./images/maison/lampe murale.jpg" alt="Lampe Murale">
+    <h3>Lampe Murale</h3>
+    <p>$24.99</p>
+  </div>
 
-    <div class="pc" onclick="commander('Fontaine Intérieure Zen','99.99')">
-        <img src="./images/maison/fontaine zen.jpg" alt="Fontaine Zen">
-        <h3>Fontaine Intérieure Zen</h3>
-        <p>$99.99</p>
-    </div>
+  <div class="pc" data-id="36" data-nom="Fontaine Intérieure Zen" data-prix="99.99" data-img="./images/maison/fontaine zen.jpg">
+    <img src="./images/maison/fontaine zen.jpg" alt="Fontaine Zen">
+    <h3>Fontaine Intérieure Zen</h3>
+    <p>$99.99</p>
+  </div>
 
 </div>
 
+<script>
+document.querySelectorAll('.pc[data-id]').forEach(async carte => {
+  const id   = carte.dataset.id;
+  const nom  = carte.dataset.nom;
+  const prix = carte.dataset.prix;
+  const img  = carte.dataset.img;
+
+  // ── Charger le stock ──
+  let quantite = 0;
+  try {
+    const r = await fetch(`/api/produit/${id}/stock`);
+    const d = await r.json();
+    if (d.success) quantite = d.quantite;
+  } catch(e) {}
+
+  // ── Badge global (toujours affiché sous le prix) ──
+  let badgeGlobal = '';
+  if (quantite === 0)     badgeGlobal = '<span class="badge-stock s-zero">⛔ Épuisé</span>';
+  else if (quantite <= 5) badgeGlobal = `<span class="badge-stock s-bas">⚠️ Plus que ${quantite}</span>`;
+  else                    badgeGlobal = '<span class="badge-stock s-ok">✅ En stock</span>';
+  carte.querySelector('p').insertAdjacentHTML('afterend', badgeGlobal);
+
+  // ── Badge détaillé avec chiffre exact (affiché au clic) ──
+  let sdCls, sdTxt;
+  if (quantite === 0)     { sdCls='sd-zero'; sdTxt=`⛔ Épuisé`; }
+  else if (quantite <= 5) { sdCls='sd-bas';  sdTxt=`⚠️ ${quantite} en stock`; }
+  else                    { sdCls='sd-ok';   sdTxt=`✅ ${quantite} en stock`; }
+
+  const detailEl = document.createElement('span');
+  detailEl.className = `stock-detail ${sdCls}`;
+  detailEl.textContent = sdTxt;
+
+  // ── Carte épuisée ──
+  if (quantite === 0) {
+    carte.classList.add('tout-epuise');
+    carte.style.pointerEvents = 'none';
+    carte.insertAdjacentHTML('beforeend', '<span class="epuise-banner">ÉPUISÉ</span>');
+    return;
+  }
+
+  // ── Boutons Panier / Acheter ──
+  const actions = document.createElement('div');
+  actions.className = 'pc-actions';
+  actions.innerHTML = `
+    <button class="btn-panier btn-panier-active"
+      onclick="event.stopPropagation(); ajouterAuPanierDecoration('${id}','${nom}','${prix}','${img}')">
+      <i class="ti ti-shopping-cart-plus"></i> Panier
+    </button>
+    <button class="btn-commander-direct"
+      onclick="event.stopPropagation(); commanderDecoration('${id}','${nom}','${prix}','${img}')">
+      <i class="ti ti-bolt"></i> Acheter
+    </button>`;
+
+  carte.appendChild(detailEl);
+  carte.appendChild(actions);
+
+  // ── Clic sur la carte → afficher/cacher le badge détaillé ──
+  carte.addEventListener('click', e => {
+    if (e.target.closest('button')) return;
+
+    const estActive = carte.classList.contains('active-card');
+
+    document.querySelectorAll('.pc.active-card').forEach(c => {
+      c.classList.remove('active-card');
+      const sd = c.querySelector('.stock-detail');
+      if (sd) sd.classList.remove('visible');
+    });
+
+    if (!estActive) {
+      carte.classList.add('active-card');
+      detailEl.classList.add('visible');
+    }
+  });
+});
+
+// ── Met à jour les badges d'une carte après décrément ──
+function majAffichageStock(carte, nouvelleQte) {
+  const bg = carte.querySelector('.badge-stock');
+  if (bg) {
+    bg.className = 'badge-stock';
+    if (nouvelleQte === 0)      { bg.className += ' s-zero'; bg.textContent = '⛔ Épuisé'; }
+    else if (nouvelleQte <= 5)  { bg.className += ' s-bas';  bg.textContent = `⚠️ Plus que ${nouvelleQte}`; }
+    else                        { bg.className += ' s-ok';   bg.textContent = '✅ En stock'; }
+  }
+
+  const sd = carte.querySelector('.stock-detail');
+  if (sd) {
+    sd.className = sd.className.replace(/sd-\w+/, '');
+    if (nouvelleQte === 0)      { sd.classList.add('sd-zero'); sd.textContent = '⛔ Épuisé'; }
+    else if (nouvelleQte <= 5)  { sd.classList.add('sd-bas');  sd.textContent = `⚠️ ${nouvelleQte} en stock`; }
+    else                        { sd.classList.add('sd-ok');   sd.textContent = `✅ ${nouvelleQte} en stock`; }
+  }
+
+  if (nouvelleQte === 0) {
+    carte.classList.add('tout-epuise');
+    carte.classList.remove('active-card');
+    carte.style.pointerEvents = 'none';
+    if (sd) sd.classList.remove('visible');
+    carte.insertAdjacentHTML('beforeend', '<span class="epuise-banner">ÉPUISÉ</span>');
+    const actions = carte.querySelector('.pc-actions');
+    if (actions) actions.style.display = 'none';
+  }
+}
+
+async function commanderDecoration(id, nom, prix, img) {
+  const carte = document.querySelector(`.pc[data-id="${id}"]`);
+  await fetch('/api/produit/' + id + '/decrementer', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }
+  });
+  try {
+    const r = await fetch(`/api/produit/${id}/stock`);
+    const d = await r.json();
+    if (d.success && carte) majAffichageStock(carte, d.quantite);
+  } catch(e) {}
+  commander(nom, prix, img);
+}
+
+async function ajouterAuPanierDecoration(id, nom, prix, img) {
+  const carte = document.querySelector(`.pc[data-id="${id}"]`);
+  await fetch('/api/produit/' + id + '/decrementer', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }
+  });
+  try {
+    const r = await fetch(`/api/produit/${id}/stock`);
+    const d = await r.json();
+    if (d.success && carte) majAffichageStock(carte, d.quantite);
+  } catch(e) {}
+  ajouterAuPanier(nom, prix, img);
+}
+</script>
 </body>
 </html>

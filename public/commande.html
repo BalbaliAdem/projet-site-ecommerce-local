@@ -98,7 +98,6 @@
       margin-top: 4px;
     }
 
-   
     .form-card {
       background: #fff;
       border-radius: 16px;
@@ -117,6 +116,50 @@
     }
     .form-card h1 i { color: #38bdf8; }
     .subtitle { font-size: 0.82rem; color: #9ca3af; margin-bottom: 1.5rem; }
+
+    /* ── Bandeau utilisateur connecté ── */
+    .user-banner {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      background: #f0fdf4;
+      border: 1.5px solid #86efac;
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 1.2rem;
+      font-size: 0.83rem;
+      color: #166534;
+      font-weight: 600;
+    }
+    .user-banner i { font-size: 20px; color: #22c55e; flex-shrink: 0; }
+    .user-banner span { flex: 1; }
+    .user-banner .lien-deco {
+      font-size: 0.75rem;
+      color: #6b7280;
+      font-weight: 400;
+      cursor: pointer;
+      text-decoration: underline;
+      white-space: nowrap;
+    }
+    .user-banner .lien-deco:hover { color: #dc2626; }
+
+    /* ── Champ pré-rempli (lecture seule) ── */
+    .form-group input.prefilled {
+      background: #f9fafb;
+      color: #374151;
+      border-color: #d1fae5;
+      cursor: default;
+    }
+    .prefilled-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      color: #16a34a;
+      margin-left: 6px;
+    }
+
     .form-group { margin-bottom: 1rem; }
     .form-group label {
       display: block;
@@ -201,6 +244,7 @@
 
   <div class="page">
 
+    <!-- Carte produit (gauche) -->
     <div class="produit-card">
       <div class="badge-select">🛒 Votre sélection</div>
       <img class="produit-img" id="img-produit" src="" alt="produit">
@@ -217,15 +261,29 @@
         <strong style="color:#0284c7;font-size:1.1rem">$<span id="total">—</span></strong>
       </div>
     </div>
+
+    <!-- Formulaire (droite) -->
     <div class="form-card">
       <div id="form-section">
         <h1><i class="ti ti-map-pin"></i> Informations de livraison</h1>
         <p class="subtitle">Remplissez vos coordonnées pour finaliser la commande</p>
 
+        <!-- Bandeau utilisateur connecté -->
+        <div class="user-banner" id="user-banner">
+          <i class="ti ti-circle-check"></i>
+          <span id="user-banner-text">Connecté — données pré-remplies</span>
+          <span class="lien-deco" onclick="seDeconnecter()">Changer de compte</span>
+        </div>
+
         <form onsubmit="return soumettre(event)">
           <div class="form-row">
             <div class="form-group">
-              <label>Nom</label>
+              <label>
+                Nom
+                <span class="prefilled-label" id="lbl-nom" style="display:none">
+                  <i class="ti ti-lock" style="font-size:10px"></i> auto
+                </span>
+              </label>
               <div class="input-wrap">
                 <i class="ti ti-user"></i>
                 <input type="text" id="nomp" placeholder="Dupont">
@@ -233,7 +291,12 @@
               <div class="error-msg" id="err-nom">Nom invalide</div>
             </div>
             <div class="form-group">
-              <label>Prénom</label>
+              <label>
+                Prénom
+                <span class="prefilled-label" id="lbl-prenom" style="display:none">
+                  <i class="ti ti-lock" style="font-size:10px"></i> auto
+                </span>
+              </label>
               <div class="input-wrap">
                 <i class="ti ti-user"></i>
                 <input type="text" id="prenom" placeholder="Jean">
@@ -243,7 +306,12 @@
           </div>
 
           <div class="form-group">
-            <label>Email</label>
+            <label>
+              Email
+              <span class="prefilled-label" id="lbl-email" style="display:none">
+                <i class="ti ti-lock" style="font-size:10px"></i> auto
+              </span>
+            </label>
             <div class="input-wrap">
               <i class="ti ti-mail"></i>
               <input type="text" id="email" placeholder="jean@example.com">
@@ -252,7 +320,12 @@
           </div>
 
           <div class="form-group">
-            <label>Téléphone</label>
+            <label>
+              Téléphone
+              <span class="prefilled-label" id="lbl-tel" style="display:none">
+                <i class="ti ti-lock" style="font-size:10px"></i> auto
+              </span>
+            </label>
             <div class="input-wrap">
               <i class="ti ti-phone"></i>
               <input type="text" id="telephone" placeholder="12345678">
@@ -287,6 +360,7 @@
           </div>
         </form>
       </div>
+
       <div class="success-box" id="success-box">
         <i class="ti ti-circle-check big"></i>
         <h2>Commande confirmée ! 🎉</h2>
@@ -299,28 +373,77 @@
   </div>
 
   <script>
-   
-    const nomProduit  = localStorage.getItem("nomproduit") || "—";
+    // Produit depuis localStorage 
+    const nomProduit  = localStorage.getItem("nomproduit")  || "—";
     const prixProduit = localStorage.getItem("prixproduit") || "—";
-    const imgProduit  = localStorage.getItem("imgproduit") || "";
+    const imgProduit  = localStorage.getItem("imgproduit")  || "";
 
     document.getElementById("nom-produit").textContent  = nomProduit;
     document.getElementById("prix-produit").textContent = prixProduit;
     document.getElementById("sous-total").textContent   = prixProduit;
     document.getElementById("total").textContent        = prixProduit;
 
-    // on peut affiche limage qui on a choisir 
     if (imgProduit) {
       const imgEl   = document.getElementById("img-produit");
       const emojiEl = document.getElementById("emoji-produit");
-      imgEl.src     = imgProduit;
+      imgEl.src   = imgProduit;
       imgEl.style.display   = "block";
       emojiEl.style.display = "none";
     }
 
-    function retourner() {
-      history.back();
+    //Pré-remplissage depuis la session
+    const sessionRaw = sessionStorage.getItem("utilisateur");
+    let utilisateur = null;
+
+    if (sessionRaw) {
+      try { utilisateur = JSON.parse(sessionRaw); } catch(e) {}
     }
+
+    if (utilisateur) {
+      // Remplir les champs
+      const champIds = ['nomp', 'prenom', 'email', 'telephone'];
+      const valeurs  = [utilisateur.nom, utilisateur.prenom, utilisateur.email, utilisateur.telephone];
+      const labels   = ['lbl-nom', 'lbl-prenom', 'lbl-email', 'lbl-tel'];
+
+      champIds.forEach((id, i) => {
+        const input = document.getElementById(id);
+        if (input && valeurs[i]) {
+          input.value = valeurs[i];
+          input.classList.add('prefilled');
+          input.readOnly = true;
+        }
+        const lbl = document.getElementById(labels[i]);
+        if (lbl) lbl.style.display = 'inline-flex';
+      });
+
+      // Afficher le bandeau
+      const banner = document.getElementById('user-banner');
+      const bannerText = document.getElementById('user-banner-text');
+      banner.style.display = 'flex';
+      bannerText.textContent =
+        `Connecté en tant que ${utilisateur.prenom} ${utilisateur.nom} — champs pré-remplis ✔`;
+    }
+
+    // Déconnexion (permet de remplir manuellement)
+    function seDeconnecter() {
+      sessionStorage.removeItem('utilisateur');
+      utilisateur = null;
+
+      ['nomp', 'prenom', 'email', 'telephone'].forEach(id => {
+        const input = document.getElementById(id);
+        input.value = '';
+        input.classList.remove('prefilled');
+        input.readOnly = false;
+      });
+      ['lbl-nom', 'lbl-prenom', 'lbl-email', 'lbl-tel'].forEach(id => {
+        document.getElementById(id).style.display = 'none';
+      });
+
+      document.getElementById('user-banner').style.display = 'none';
+    }
+
+    // Utilitaires 
+    function retourner() { history.back(); }
 
     function remplirDate() {
       const d = new Date();
@@ -338,16 +461,18 @@
       return true;
     }
 
+    //Soumission du formulaire
     async function soumettre(e) {
       e.preventDefault();
       let ok = true;
+
       const nom  = document.getElementById("nomp").value.trim();
       const prenom = document.getElementById("prenom").value.trim();
       const email  = document.getElementById("email").value.trim();
       const tel    = document.getElementById("telephone").value.trim();
       const loc    = document.getElementById("localisation").value.trim();
 
-      if (!nom || !estAlpha(nom))   { affErreur("nom", true);    ok = false; } else affErreur("nom", false);
+      if (!nom || !estAlpha(nom))       { affErreur("nom",    true); ok = false; } else affErreur("nom",    false);
       if (!prenom || !estAlpha(prenom)) { affErreur("prenom", true); ok = false; } else affErreur("prenom", false);
 
       const emailOk = email && email.indexOf("@") > 0 &&
@@ -355,35 +480,40 @@
       if (!emailOk) { affErreur("email", true); ok = false; } else affErreur("email", false);
 
       if (!tel || tel.length !== 8 || isNaN(tel)) { affErreur("tel", true); ok = false; } else affErreur("tel", false);
-      if (!loc) { affErreur("loc", true); ok = false; } else affErreur("loc", false);
+      if (!loc)                                    { affErreur("loc", true); ok = false; } else affErreur("loc", false);
 
-      if (ok) {
-        try {
-          const reponse = await fetch('/api/commande', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              nom, prenom, email, telephone: tel, localisation: loc,
-              produit: { nom: nomProduit, prix: prixProduit, image: imgProduit }
-            })
-          });
+      if (!ok) return false;
 
-          const data = await reponse.json();
-
-          if (data.success) {
-            document.getElementById("form-section").style.display = "none";
-            document.getElementById("success-box").style.display  = "block";
-
-            // on vide les infos du produit choisi
-            localStorage.removeItem("nomproduit");
-            localStorage.removeItem("prixproduit");
-            localStorage.removeItem("imgproduit");
-          } else {
-            alert(data.message || "Erreur lors de l'enregistrement de la commande");
-          }
-        } catch (err) {
-          alert("Impossible de contacter le serveur. Verifiez que le serveur est demarre.");
+      try {
+        // Inclure l'id utilisateur si connecté
+        const body = {
+          nom, prenom, email, telephone: tel, localisation: loc,
+          produit: { nom: nomProduit, prix: prixProduit, image: imgProduit }
+        };
+        if (utilisateur && utilisateur.id) {
+          body.id_utilisateur = utilisateur.id;
         }
+
+        const reponse = await fetch('/api/commande', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+
+        const data = await reponse.json();
+
+        if (data.success) {
+          document.getElementById("form-section").style.display = "none";
+          document.getElementById("success-box").style.display  = "block";
+
+          localStorage.removeItem("nomproduit");
+          localStorage.removeItem("prixproduit");
+          localStorage.removeItem("imgproduit");
+        } else {
+          alert(data.message || "Erreur lors de l'enregistrement de la commande");
+        }
+      } catch (err) {
+        alert("Impossible de contacter le serveur. Vérifiez que le serveur est démarré.");
       }
     }
   </script>

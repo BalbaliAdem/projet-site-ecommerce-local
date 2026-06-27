@@ -5,83 +5,269 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PC Gaming</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/buttons.css">
     <script src="js/script.js"></script>
+    <style>
+      /* ─── Badge stock global (toujours visible) ─── */
+      .badge-stock {
+        display:inline-block; font-size:11px; font-weight:600;
+        padding:2px 8px; border-radius:20px; margin:5px 0 2px;
+      }
+      .s-ok   { background:#dcfce7; color:#16a34a; }
+      .s-bas  { background:#fef9c3; color:#a16207; }
+      .s-zero { background:#fee2e2; color:#dc2626; }
+
+      /* ─── Badge stock détaillé (visible après clic sur la carte) ─── */
+      .stock-detail {
+        display:none; /* caché par défaut */
+        align-items:center; gap:5px;
+        font-size:12px; font-weight:700;
+        padding:4px 12px; border-radius:20px;
+        margin:4px 0 6px;
+      }
+      .stock-detail.visible { display:inline-flex; }
+      .stock-detail.sd-ok   { background:#dcfce7; color:#16a34a; }
+      .stock-detail.sd-bas  { background:#fef9c3; color:#a16207; }
+      .stock-detail.sd-zero { background:#fee2e2; color:#dc2626; }
+
+      /* ─── Carte épuisée ─── */
+      .pc { position:relative; cursor:pointer; }
+      .pc.tout-epuise { opacity:.65; pointer-events:none; }
+      .pc.tout-epuise .pc-actions { display:none; }
+      .epuise-banner {
+        position:absolute; top:10px; right:-8px;
+        background:#dc2626; color:#fff; font-size:10px; font-weight:700;
+        padding:3px 10px; border-radius:4px; transform:rotate(3deg);
+        box-shadow:0 2px 6px rgba(220,38,38,.35); z-index:3;
+      }
+
+      /* ─── Carte active (sélectionnée) ─── */
+      .pc.active-card {
+        outline: 2px solid #6366f1;
+        box-shadow: 0 0 0 4px rgba(99,102,241,.12);
+      }
+    </style>
 </head>
 <body>
 <div class="produits-grid">
 
-  <div class="pc" onclick="commander('PC MSI Thin 15 B13UDX i5 13è Gén 8G RTX3050','1349.99','./images/gaming/msi-pc-gaming.jpg')">
+  <div class="pc" data-id="49" data-nom="PC MSI Thin 15 B13UDX i5 13è Gén 8G RTX3050" data-prix="1349.99" data-img="./images/gaming/msi-pc-gaming.jpg">
     <img src="./images/gaming/msi-pc-gaming.jpg" alt="MSI Thin 15">
     <h3>PC MSI Thin 15 B13UDX RTX3050</h3>
     <p>$1349.99</p>
   </div>
 
-  <div class="pc" onclick="commander('PC ASUS TUF Gaming A15 RYZEN 5 8Go RTX 2050','999.99','./images/gaming/pc asus tuf .jpg')">
+  <div class="pc" data-id="50" data-nom="PC ASUS TUF Gaming A15 RYZEN 5 8Go RTX 2050" data-prix="999.99" data-img="./images/gaming/pc asus tuf .jpg">
     <img src="./images/gaming/pc asus tuf .jpg" alt="ASUS TUF Gaming A15">
     <h3>PC ASUS TUF Gaming A15 RTX2050</h3>
     <p>$999.99</p>
   </div>
 
-  <div class="pc" onclick="commander('PC LENOVO LOQ 15IAX9 i5 12è Gén 8G RTX 3050','1279.99','./images/gaming/pc gaming loq.jpg')">
+  <div class="pc" data-id="51" data-nom="PC LENOVO LOQ 15IAX9 i5 12è Gén 8G RTX 3050" data-prix="1279.99" data-img="./images/gaming/pc gaming loq.jpg">
     <img src="./images/gaming/pc gaming loq.jpg" alt="LENOVO LOQ">
     <h3>PC LENOVO LOQ 15IAX9 RTX3050</h3>
     <p>$1279.99</p>
   </div>
 
-  <div class="pc" onclick="commander('PC ASUS Vivobook 16X i5 13è Gén 24Go RTX3050','1549.99','./images/gaming/pc asus vivobook.jpg')">
+  <div class="pc" data-id="52" data-nom="PC ASUS Vivobook 16X i5 13è Gén 24Go RTX3050" data-prix="1549.99" data-img="./images/gaming/pc asus vivobook.jpg">
     <img src="./images/gaming/pc asus vivobook.jpg" alt="ASUS Vivobook 16X">
     <h3>PC ASUS Vivobook 16X RTX3050</h3>
     <p>$1549.99</p>
   </div>
 
-  <div class="pc" onclick="commander('PC HP Victus 15 RYZEN 5 16Go RTX 2050','1129.99','./images/gaming/pc gaming victus.jpg')">
+  <div class="pc" data-id="53" data-nom="PC HP Victus 15 RYZEN 5 16Go RTX 2050" data-prix="1129.99" data-img="./images/gaming/pc gaming victus.jpg">
     <img src="./images/gaming/pc gaming victus.jpg" alt="HP Victus 15">
     <h3>PC HP Victus 15 RYZEN 5 RTX2050</h3>
     <p>$1129.99</p>
   </div>
 
-  <div class="pc" onclick="commander('PC Gigabyte AERO X16 Ryzen AI 7 RTX 5070','2849.99','./images/gaming/pc gigabite AERO.jpg')">
+  <div class="pc" data-id="54" data-nom="PC Gigabyte AERO X16 Ryzen AI 7 RTX 5070" data-prix="2849.99" data-img="./images/gaming/pc gigabite AERO.jpg">
     <img src="./images/gaming/pc gigabite AERO.jpg" alt="Gigabyte AERO X16">
     <h3>PC Gigabyte AERO X16 RTX5070</h3>
     <p>$2849.99</p>
   </div>
 
-  <div class="pc" onclick="commander('PC Dell Alienware 16 Core 5 RTX 3050 / Bleu','1649.99','./images/gaming/pc gaming dell.jpg')">
+  <div class="pc" data-id="55" data-nom="PC Dell Alienware 16 Core 5 RTX 3050 / Bleu" data-prix="1649.99" data-img="./images/gaming/pc gaming dell.jpg">
     <img src="./images/gaming/pc gaming dell.jpg" alt="Dell Alienware 16">
     <h3>PC Dell Alienware 16 RTX3050</h3>
     <p>$1649.99</p>
   </div>
 
-  <div class="pc" onclick="commander('PC Lenovo LOQ 15ARP10E Ryzen 5 RTX 3050 / Gris','1899.99','./images/gaming/pc loq 2.jpg')">
+  <div class="pc" data-id="56" data-nom="PC Lenovo LOQ 15ARP10E Ryzen 5 RTX 3050 / Gris" data-prix="1899.99" data-img="./images/gaming/pc loq 2.jpg">
     <img src="./images/gaming/pc loq 2.jpg" alt="Lenovo LOQ 15ARP10E">
     <h3>PC Lenovo LOQ 15ARP10E RTX3050</h3>
     <p>$1899.99</p>
   </div>
 
-  <div class="pc" onclick="commander('PC Gigabyte G6KF i7 RTX 4060 / Noir','2049.99','./images/gaming/pc gaming gigabite.jpg')">
+  <div class="pc" data-id="57" data-nom="PC Gigabyte G6KF i7 RTX 4060 / Noir" data-prix="2049.99" data-img="./images/gaming/pc gaming gigabite.jpg">
     <img src="./images/gaming/pc gaming gigabite.jpg" alt="Gigabyte G6KF">
     <h3>PC Gigabyte G6KF RTX4060</h3>
     <p>$2049.99</p>
   </div>
 
-  <div class="pc" onclick="commander('PC Lenovo Legion 5 i7 RTX 5050 / Noir','2699.99','./images/gaming/pc legion .jpg')">
+  <div class="pc" data-id="58" data-nom="PC Lenovo Legion 5 i7 RTX 5050 / Noir" data-prix="2699.99" data-img="./images/gaming/pc legion .jpg">
     <img src="./images/gaming/pc legion .jpg" alt="Lenovo Legion 5">
     <h3>PC Lenovo Legion 5 RTX5050</h3>
     <p>$2699.99</p>
   </div>
 
-  <div class="pc" onclick="commander('PC Gigabyte GAMING A16 Ryzen 7 RTX 5050 / Noir','2399.99','./images/gaming/pc gigabite 2.jpg')">
+  <div class="pc" data-id="59" data-nom="PC Gigabyte GAMING A16 Ryzen 7 RTX 5050 / Noir" data-prix="2399.99" data-img="./images/gaming/pc gigabite 2.jpg">
     <img src="./images/gaming/pc gigabite 2.jpg" alt="Gigabyte GAMING A16">
     <h3>PC Gigabyte GAMING A16 RTX5050</h3>
     <p>$2399.99</p>
   </div>
 
-  <div class="pc" onclick="commander('PC Dell Alienware 16X Ultra 9 RTX 5070 / Bleu','3049.99','./images/gaming/pc dell alianware.jpg')">
+  <div class="pc" data-id="60" data-nom="PC Dell Alienware 16X Ultra 9 RTX 5070 / Bleu" data-prix="3049.99" data-img="./images/gaming/pc dell alianware.jpg">
     <img src="./images/gaming/pc dell alianware.jpg" alt="Dell Alienware 16X">
     <h3>PC Dell Alienware 16X RTX5070</h3>
     <p>$3049.99</p>
   </div>
 
 </div>
+
+<script>
+document.querySelectorAll('.pc[data-id]').forEach(async carte => {
+  const id   = carte.dataset.id;
+  const nom  = carte.dataset.nom;
+  const prix = carte.dataset.prix;
+  const img  = carte.dataset.img;
+
+  // ── Charger le stock ──
+  let quantite = 0;
+  try {
+    const r = await fetch(`/api/produit/${id}/stock`);
+    const d = await r.json();
+    if (d.success) quantite = d.quantite;
+  } catch(e) {}
+
+  // ── Badge global (toujours affiché sous le prix) ──
+  let badgeGlobal = '';
+  if (quantite === 0)     badgeGlobal = '<span class="badge-stock s-zero">⛔ Épuisé</span>';
+  else if (quantite <= 5) badgeGlobal = `<span class="badge-stock s-bas">⚠️ Plus que ${quantite}</span>`;
+  else                    badgeGlobal = '<span class="badge-stock s-ok">✅ En stock</span>';
+  carte.querySelector('p').insertAdjacentHTML('afterend', badgeGlobal);
+
+  // ── Badge détaillé avec chiffre exact (affiché au clic) ──
+  let sdCls, sdTxt;
+  if (quantite === 0)     { sdCls='sd-zero'; sdTxt=`⛔ Épuisé`; }
+  else if (quantite <= 5) { sdCls='sd-bas';  sdTxt=`⚠️ ${quantite} en stock`; }
+  else                    { sdCls='sd-ok';   sdTxt=`✅ ${quantite} en stock`; }
+
+  const detailEl = document.createElement('span');
+  detailEl.className = `stock-detail ${sdCls}`;
+  detailEl.textContent = sdTxt;
+  // Insérer juste avant les boutons (sera ajouté plus bas)
+
+  // ── Carte épuisée ──
+  if (quantite === 0) {
+    carte.classList.add('tout-epuise');
+    carte.style.pointerEvents = 'none';
+    carte.insertAdjacentHTML('beforeend', '<span class="epuise-banner">ÉPUISÉ</span>');
+    return;
+  }
+
+  // ── Boutons Panier / Acheter ──
+  const actions = document.createElement('div');
+  actions.className = 'pc-actions';
+  actions.innerHTML = `
+    <button class="btn-panier btn-panier-active"
+      onclick="event.stopPropagation(); ajouterAuPanierPC('${id}','${nom}','${prix}','${img}')">
+      <i class="ti ti-shopping-cart-plus"></i> Panier
+    </button>
+    <button class="btn-commander-direct"
+      onclick="event.stopPropagation(); commanderPC('${id}','${nom}','${prix}','${img}')">
+      <i class="ti ti-bolt"></i> Acheter
+    </button>`;
+
+  // Insérer badge détaillé AVANT les boutons
+  carte.appendChild(detailEl);
+  carte.appendChild(actions);
+
+  // ── Clic sur la carte → afficher/cacher le badge détaillé ──
+  carte.addEventListener('click', e => {
+    // Ne pas déclencher si on clique sur un bouton
+    if (e.target.closest('button')) return;
+
+    const estActive = carte.classList.contains('active-card');
+
+    // Désactiver toutes les autres cartes
+    document.querySelectorAll('.pc.active-card').forEach(c => {
+      c.classList.remove('active-card');
+      const sd = c.querySelector('.stock-detail');
+      if (sd) sd.classList.remove('visible');
+    });
+
+    // Activer cette carte si elle ne l'était pas
+    if (!estActive) {
+      carte.classList.add('active-card');
+      detailEl.classList.add('visible');
+    }
+  });
+});
+
+// ── Met à jour les badges d'une carte après décrément ──
+function majAffichageStock(carte, nouvelleQte) {
+  // Badge global (sous le prix)
+  const bg = carte.querySelector('.badge-stock');
+  if (bg) {
+    bg.className = 'badge-stock';
+    if (nouvelleQte === 0)      { bg.className += ' s-zero'; bg.textContent = '⛔ Épuisé'; }
+    else if (nouvelleQte <= 5)  { bg.className += ' s-bas';  bg.textContent = `⚠️ Plus que ${nouvelleQte}`; }
+    else                        { bg.className += ' s-ok';   bg.textContent = '✅ En stock'; }
+  }
+
+  // Badge détaillé (visible au clic)
+  const sd = carte.querySelector('.stock-detail');
+  if (sd) {
+    sd.className = sd.className.replace(/sd-\w+/, '');
+    if (nouvelleQte === 0)      { sd.classList.add('sd-zero'); sd.textContent = '⛔ Épuisé'; }
+    else if (nouvelleQte <= 5)  { sd.classList.add('sd-bas');  sd.textContent = `⚠️ ${nouvelleQte} en stock`; }
+    else                        { sd.classList.add('sd-ok');   sd.textContent = `✅ ${nouvelleQte} en stock`; }
+  }
+
+  // Si épuisé → désactiver la carte
+  if (nouvelleQte === 0) {
+    carte.classList.add('tout-epuise');
+    carte.classList.remove('active-card');
+    carte.style.pointerEvents = 'none';
+    if (sd) sd.classList.remove('visible');
+    carte.insertAdjacentHTML('beforeend', '<span class="epuise-banner">ÉPUISÉ</span>');
+    const actions = carte.querySelector('.pc-actions');
+    if (actions) actions.style.display = 'none';
+  }
+}
+
+async function commanderPC(id, nom, prix, img) {
+  const carte = document.querySelector(`.pc[data-id="${id}"]`);
+  // 1. Décrémenter en BDD
+  await fetch('/api/produit/' + id + '/decrementer', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }
+  });
+  // 2. Relire le vrai stock et mettre à jour l'affichage IMMÉDIATEMENT
+  try {
+    const r = await fetch(`/api/produit/${id}/stock`);
+    const d = await r.json();
+    if (d.success && carte) majAffichageStock(carte, d.quantite);
+  } catch(e) {}
+  // 3. Ouvrir le formulaire de commande
+  commander(nom, prix, img);
+}
+
+async function ajouterAuPanierPC(id, nom, prix, img) {
+  const carte = document.querySelector(`.pc[data-id="${id}"]`);
+  // 1. Décrémenter en BDD
+  await fetch('/api/produit/' + id + '/decrementer', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }
+  });
+  // 2. Relire le vrai stock et mettre à jour l'affichage IMMÉDIATEMENT
+  try {
+    const r = await fetch(`/api/produit/${id}/stock`);
+    const d = await r.json();
+    if (d.success && carte) majAffichageStock(carte, d.quantite);
+  } catch(e) {}
+  // 3. Ajouter au panier
+  ajouterAuPanier(nom, prix, img);
+}
+</script>
 </body>
 </html>

@@ -9,7 +9,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Poppins', sans-serif; background: #f0f2f5; min-height: 100vh; }
 
-    /*le log de ladmin */
+    /* Login  */
     .login-wrap {
       min-height: 100vh; display: flex; align-items: center;
       justify-content: center; padding: 2rem;
@@ -28,7 +28,6 @@
     .login-header .avatar i { font-size: 30px; color: #fff; }
     .login-header h1 { font-size: 1.4rem; font-weight: 700; color: #111827; }
     .login-header p  { font-size: 0.85rem; color: #6b7280; margin-top: 4px; }
-
     .form-group { margin-bottom: 1rem; }
     .form-group label { display: block; font-size: 0.82rem; font-weight: 600; color: #374151; margin-bottom: 5px; }
     .input-wrap { position: relative; }
@@ -36,15 +35,17 @@
       position: absolute; left: 12px; top: 50%;
       transform: translateY(-50%); font-size: 18px; color: #9ca3af;
     }
-    .form-group input {
+    .form-group input, .form-group select {
       width: 100%; padding: 11px 12px 11px 40px;
       border: 1.5px solid #e5e7eb; border-radius: 10px;
       font-size: 0.9rem; font-family: 'Poppins', sans-serif;
       color: #111827; outline: none;
       transition: border-color .2s, box-shadow .2s;
     }
-    .form-group input:focus { border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,0.15); }
-
+    .form-group select { padding-left: 12px; }
+    .form-group input:focus, .form-group select:focus {
+      border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,0.15);
+    }
     .btn-login {
       width: 100%; padding: 13px; background: #7c3aed; color: #fff;
       border: none; border-radius: 10px; font-size: 1rem; font-weight: 600;
@@ -54,7 +55,6 @@
     }
     .btn-login:hover { background: #6d28d9; transform: translateY(-1px); }
     .btn-login i { font-size: 18px; }
-
     .error-login {
       background: #fff1f1; border: 1px solid #fecaca;
       color: #ef4444; border-radius: 8px;
@@ -64,9 +64,8 @@
     .back-link { text-align: center; margin-top: 1rem; font-size: 0.83rem; color: #6b7280; }
     .back-link a { color: #7c3aed; text-decoration: none; font-weight: 600; }
 
-    /* dashbord*/
+    /* Dashboard */
     #dashboard { display: none; }
-
     .topbar {
       background: #111827; color: #fff;
       display: flex; align-items: center; justify-content: space-between;
@@ -84,7 +83,7 @@
     }
     .btn-logout:hover { background: rgba(239,68,68,0.3); border-color: #ef4444; }
 
-    .main { padding: 2rem; max-width: 1200px; margin: 0 auto; }
+    .main { padding: 2rem; max-width: 1300px; margin: 0 auto; }
 
     .stats-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -104,27 +103,29 @@
     .stat-icon.purple { background: #f3e8ff; color: #7c3aed; }
     .stat-icon.blue   { background: #e0f2fe; color: #0284c7; }
     .stat-icon.green  { background: #dcfce7; color: #16a34a; }
+    .stat-icon.orange { background: #fff7ed; color: #ea580c; }
     .stat-info .val { font-size: 1.6rem; font-weight: 700; color: #111827; }
     .stat-info .lbl { font-size: 0.78rem; color: #6b7280; }
 
-    .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+    /* ── Tabs ───────────────────────────────────────────────── */
+    .tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
     .tab-btn {
       padding: 8px 20px; border-radius: 8px; border: 1.5px solid #e5e7eb;
       background: #fff; font-size: 0.85rem; font-weight: 600;
       cursor: pointer; color: #6b7280; font-family: 'Poppins', sans-serif;
-      display: flex; align-items: center; gap: 6px;
-      transition: all .2s;
+      display: flex; align-items: center; gap: 6px; transition: all .2s;
     }
     .tab-btn.active { background: #7c3aed; color: #fff; border-color: #7c3aed; }
     .tab-btn:hover:not(.active) { border-color: #7c3aed; color: #7c3aed; }
 
+    /* ── Table card ─────────────────────────────────────────── */
     .table-card {
       background: #fff; border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.06); overflow: hidden;
     }
     .table-header {
       padding: 1rem 1.5rem; border-bottom: 1px solid #f3f4f6;
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
     }
     .table-header h2 { font-size: 1rem; font-weight: 700; color: #111827; }
     .badge-count {
@@ -132,7 +133,6 @@
       font-size: 0.75rem; font-weight: 700;
       padding: 2px 10px; border-radius: 20px;
     }
-
     table { width: 100%; border-collapse: collapse; }
     thead th {
       background: #f9fafb; padding: 10px 16px;
@@ -143,7 +143,6 @@
     tbody td { padding: 12px 16px; font-size: 0.85rem; color: #374151; border-bottom: 1px solid #f3f4f6; }
     tbody tr:last-child td { border-bottom: none; }
     tbody tr:hover td { background: #faf5ff; }
-
     .avatar-sm {
       width: 32px; height: 32px; background: #7c3aed;
       border-radius: 50%; display: inline-flex; align-items: center;
@@ -157,10 +156,8 @@
     }
     .status-badge.new   { background: #dcfce7; color: #16a34a; }
     .status-badge.admin { background: #f3e8ff; color: #7c3aed; }
-
     .loading { text-align: center; padding: 3rem; color: #9ca3af; }
     .loading i { font-size: 32px; display: block; margin-bottom: 0.5rem; }
-
     .btn-refresh {
       background: none; border: 1.5px solid #e5e7eb; border-radius: 8px;
       padding: 6px 12px; font-size: 0.8rem; cursor: pointer;
@@ -168,9 +165,98 @@
       font-family: 'Poppins', sans-serif; transition: all .2s;
     }
     .btn-refresh:hover { border-color: #7c3aed; color: #7c3aed; }
+
+    /* ── Panneau Catégories ──────────────────────────────────── */
+    .cat-panel { padding: 1.5rem; }
+    .cat-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    @media(max-width:700px){ .cat-columns{ grid-template-columns:1fr; } }
+
+    .form-card {
+      background: #f9fafb; border: 1.5px solid #e5e7eb;
+      border-radius: 12px; padding: 1.2rem;
+    }
+    .form-card h3 {
+      font-size: .9rem; font-weight: 700; color: #374151;
+      margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;
+    }
+    .form-card h3 i { color: #7c3aed; }
+
+    .field { margin-bottom: .8rem; }
+    .field label { display:block; font-size:.78rem; font-weight:600; color:#6b7280; margin-bottom:4px; }
+    .field input, .field select {
+      width:100%; padding:9px 12px;
+      border:1.5px solid #e5e7eb; border-radius:8px;
+      font-size:.85rem; font-family:'Poppins',sans-serif; color:#111827; outline:none;
+      transition:border-color .2s;
+    }
+    .field input:focus, .field select:focus { border-color:#7c3aed; }
+
+    .btn-add {
+      width:100%; padding:10px; background:#7c3aed; color:#fff;
+      border:none; border-radius:8px; font-size:.85rem; font-weight:700;
+      font-family:'Poppins',sans-serif; cursor:pointer; margin-top:.5rem;
+      display:flex; align-items:center; justify-content:center; gap:6px;
+      transition:background .2s;
+    }
+    .btn-add:hover { background:#6d28d9; }
+
+    .notif {
+      padding: 8px 14px; border-radius: 8px; font-size: .82rem;
+      font-weight: 600; margin-top: 8px; display: none;
+    }
+    .notif.ok  { background:#dcfce7; color:#16a34a; display:block; }
+    .notif.err { background:#fee2e2; color:#dc2626; display:block; }
+
+    /* ── Liste catégories dans le panneau ────────────────────── */
+    .cat-list { margin-top: 1.5rem; }
+    .cat-list h3 { font-size:.9rem; font-weight:700; color:#374151; margin-bottom:.8rem; display:flex; align-items:center; gap:6px; }
+    .cat-list h3 i { color:#7c3aed; }
+
+    .cat-item {
+      background: #fff; border: 1px solid #e5e7eb; border-radius: 10px;
+      padding: 10px 14px; margin-bottom: 8px;
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;
+    }
+    .cat-item-info { flex: 1; }
+    .cat-item-name {
+      font-weight: 700; font-size: .88rem; color: #111827;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .cat-item-name i { color: #7c3aed; }
+    .sous-cats-list { margin-top: 5px; display: flex; flex-wrap: wrap; gap: 4px; }
+    .sc-pill {
+      background: #f3e8ff; color: #7c3aed;
+      font-size: .72rem; font-weight: 600;
+      padding: 2px 10px; border-radius: 12px;
+      display: flex; align-items: center; gap: 4px;
+    }
+
+    .btn-del {
+      background: none; border: 1px solid #fecaca; color: #ef4444;
+      border-radius: 6px; padding: 4px 8px; font-size: .75rem;
+      cursor: pointer; transition: all .2s; white-space: nowrap;
+    }
+    .btn-del:hover { background: #fee2e2; }
+
+    /* ── Produits dans admin ─────────────────────────────────── */
+    .prod-admin-grid {
+      display: grid; grid-template-columns: repeat(auto-fill,minmax(160px,1fr)); gap: 10px;
+      margin-top: 1rem;
+    }
+    .prod-admin-card {
+      background:#fff; border:1px solid #e5e7eb; border-radius:10px;
+      overflow:hidden; text-align:center; font-size:.8rem;
+    }
+    .prod-admin-card img { width:100%; height:100px; object-fit:cover; background:#f3f4f6; }
+    .prod-admin-card .pan { padding:8px; }
+    .prod-admin-card .pnom  { font-weight:700; color:#111827; margin-bottom:2px; }
+    .prod-admin-card .pprix { color:#7c3aed; font-weight:700; margin-bottom:4px; }
+    .prod-admin-card .pqte  { font-size:.72rem; color:#6b7280; }
   </style>
 </head>
 <body>
+
+<!-- LOGIN  -->
 <div class="login-wrap" id="login-wrap">
   <div class="login-card">
     <div class="login-header">
@@ -178,7 +264,6 @@
       <h1>Espace Admin</h1>
       <p>Connectez-vous avec votre compte administrateur</p>
     </div>
-
     <div class="form-group">
       <label>Email admin</label>
       <div class="input-wrap">
@@ -186,30 +271,25 @@
         <input type="text" id="admin-email" placeholder="admin@supermarket.com">
       </div>
     </div>
-
     <div class="form-group">
       <label>Mot de passe</label>
       <div class="input-wrap">
         <i class="ti ti-lock icon"></i>
-        <input type="password" id="admin-mdp" placeholder="••••••••" onkeydown="if(event.key==='Enter') connexionAdmin()">
+        <input type="password" id="admin-mdp" placeholder="••••••••"
+               onkeydown="if(event.key==='Enter') connexionAdmin()">
       </div>
     </div>
-
     <button class="btn-login" onclick="connexionAdmin()">
       <i class="ti ti-login"></i> Accéder au tableau de bord
     </button>
-
     <div class="error-login" id="error-login">
       <i class="ti ti-alert-circle"></i> Email ou mot de passe incorrect
     </div>
-
-    <div class="back-link">
-      <a href="inscription.html"><i class="ti ti-arrow-left"></i> Retour</a>
-    </div>
+    <div class="back-link"><a href="index.html"><i class="ti ti-arrow-left"></i> Retour</a></div>
   </div>
 </div>
 
-<!-- le dashbord -->
+<!-- DASHBOARD -->
 <div id="dashboard">
   <div class="topbar">
     <div class="brand">SuperMarket <span>Admin</span></div>
@@ -224,7 +304,7 @@
 
   <div class="main">
 
-   
+    <!-- Stats -->
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-icon purple"><i class="ti ti-users"></i></div>
@@ -247,9 +327,16 @@
           <div class="lbl">Chiffre d'affaires (DT)</div>
         </div>
       </div>
+      <div class="stat-card">
+        <div class="stat-icon orange"><i class="ti ti-category"></i></div>
+        <div class="stat-info">
+          <div class="val" id="stat-cats">—</div>
+          <div class="lbl">Catégories</div>
+        </div>
+      </div>
     </div>
 
-    <!-- Tables -->
+    <!-- Tabs -->
     <div class="tabs">
       <button class="tab-btn active" onclick="afficherTab('users')" id="tab-users">
         <i class="ti ti-users"></i> Utilisateurs
@@ -257,9 +344,12 @@
       <button class="tab-btn" onclick="afficherTab('commandes')" id="tab-commandes">
         <i class="ti ti-shopping-bag"></i> Commandes
       </button>
+      <button class="tab-btn" onclick="afficherTab('categories')" id="tab-categories">
+        <i class="ti ti-category"></i> Catégories & Produits
+      </button>
     </div>
 
-    <!-- table user -->
+    <!-- Panel Utilisateurs -->
     <div class="table-card" id="panel-users">
       <div class="table-header">
         <h2><i class="ti ti-users" style="color:#7c3aed;margin-right:8px"></i>Liste des utilisateurs</h2>
@@ -275,7 +365,7 @@
       </div>
     </div>
 
-    <!-- table commandes -->
+    <!-- Panel Commandes -->
     <div class="table-card" id="panel-commandes" style="display:none">
       <div class="table-header">
         <h2><i class="ti ti-shopping-bag" style="color:#0284c7;margin-right:8px"></i>Liste des commandes</h2>
@@ -291,171 +381,415 @@
       </div>
     </div>
 
-  </div>
-</div>
+    <!-- Panel Catégories -->
+    <div class="table-card" id="panel-categories" style="display:none">
+      <div class="table-header">
+        <h2><i class="ti ti-category" style="color:#ea580c;margin-right:8px"></i>Gestion des catégories & produits</h2>
+        <button class="btn-refresh" onclick="chargerCategoriesAdmin()">
+          <i class="ti ti-refresh"></i> Actualiser
+        </button>
+      </div>
+
+      <div class="cat-panel">
+        <div class="cat-columns">
+
+          <!-- ─ Formulaire ajout catégorie ─ -->
+          <div>
+            <div class="form-card">
+              <h3><i class="ti ti-folder-plus"></i> Ajouter une catégorie</h3>
+              <div class="field">
+                <label>Nom de la catégorie *</label>
+                <input type="text" id="f-cat-nom" placeholder="ex: Maison, Gaming…">
+              </div>
+              <div class="field">
+                <label>Icône Tabler (ti-xxx)</label>
+                <input type="text" id="f-cat-icone" placeholder="ti-home" value="ti-tag">
+              </div>
+              <div class="field">
+                <label>Ordre d'affichage</label>
+                <input type="number" id="f-cat-ordre" placeholder="1, 2, 3…" value="0">
+              </div>
+              <button class="btn-add" onclick="ajouterCategorie()">
+                <i class="ti ti-plus"></i> Créer la catégorie
+              </button>
+              <div class="notif" id="notif-cat"></div>
+            </div>
+
+            <!-- ─ Formulaire ajout sous-catégorie ─ -->
+            <div class="form-card" style="margin-top:1rem">
+              <h3><i class="ti ti-folder"></i> Ajouter une sous-catégorie</h3>
+              <div class="field">
+                <label>Catégorie parente *</label>
+                <select id="f-sc-parent">
+                  <option value="">— choisir —</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Nom de la sous-catégorie *</label>
+                <input type="text" id="f-sc-nom" placeholder="ex: Salon, Consoles…">
+              </div>
+              <div class="field">
+                <label>Icône Tabler (ti-xxx)</label>
+                <input type="text" id="f-sc-icone" placeholder="ti-folder" value="ti-folder">
+              </div>
+              <button class="btn-add" onclick="ajouterSousCategorie()">
+                <i class="ti ti-plus"></i> Créer la sous-catégorie
+              </button>
+              <div class="notif" id="notif-sc"></div>
+            </div>
+
+            <!-- ─ Formulaire ajout produit ─ -->
+            <div class="form-card" style="margin-top:1rem">
+              <h3><i class="ti ti-box"></i> Ajouter un produit</h3>
+              <div class="field">
+                <label>Sous-catégorie *</label>
+                <select id="f-prod-sc">
+                  <option value="">— choisir —</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Nom du produit *</label>
+                <input type="text" id="f-prod-nom" placeholder="ex: Télévision 55"">
+              </div>
+              <div class="field">
+                <label>Prix (DT) *</label>
+                <input type="number" id="f-prod-prix" placeholder="0.00" step="0.01">
+              </div>
+              <div class="field">
+                <label>URL image</label>
+                <input type="text" id="f-prod-img" placeholder="./images/produit.jpg">
+              </div>
+              <div class="field">
+                <label>Quantité en stock</label>
+                <input type="number" id="f-prod-qte" placeholder="0" value="0">
+              </div>
+              <div class="field" style="display:flex;align-items:center;gap:8px;margin-top:.3rem">
+                <input type="checkbox" id="f-prod-vet" style="width:16px;padding:0">
+                <label for="f-prod-vet" style="margin:0;font-size:.82rem;color:#374151;font-weight:600">
+                  Vêtement (gestion taille/couleur)
+                </label>
+              </div>
+              <button class="btn-add" onclick="ajouterProduit()">
+                <i class="ti ti-plus"></i> Ajouter le produit
+              </button>
+              <div class="notif" id="notif-prod"></div>
+            </div>
+          </div>
+
+          <!-- ─ Liste des catégories existantes ─ -->
+          <div>
+            <div class="cat-list">
+              <h3><i class="ti ti-list"></i> Catégories enregistrées</h3>
+              <div id="cats-list-wrap">
+                <div class="loading"><i class="ti ti-loader"></i> Chargement…</div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /cat-columns -->
+      </div><!-- /cat-panel -->
+    </div><!-- /panel-categories -->
+
+  </div><!-- /main -->
+</div><!-- /dashboard -->
 
 <script>
-  //Connexion admin
-  async function connexionAdmin() {
-    const email = document.getElementById('admin-email').value.trim();
-    const mdp   = document.getElementById('admin-mdp').value;
-    const errEl = document.getElementById('error-login');
-    errEl.style.display = 'none';
-
-    if (!email || !mdp) { errEl.style.display = 'block'; return; }
-
-    try {
-      const res  = await fetch('/api/admin/connexion', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, mot_de_passe: mdp })
-      });
-      const data = await res.json();
-
-      if (data.success) {
-        sessionStorage.setItem('admin', JSON.stringify(data.admin));
-        document.getElementById('login-wrap').style.display  = 'none';
-        document.getElementById('dashboard').style.display   = 'block';
-        document.getElementById('admin-name').textContent    = data.admin.prenom + ' ' + data.admin.nom;
-        chargerUtilisateurs();
-        chargerStats();
-      } else {
-        errEl.style.display = 'block';
-      }
-    } catch (e) {
-      errEl.textContent = 'Erreur réseau — serveur démarré ?';
-      errEl.style.display = 'block';
-    }
-  }
-
-  function deconnexion() {
-    sessionStorage.removeItem('admin');
-    document.getElementById('login-wrap').style.display  = 'flex';
-    document.getElementById('dashboard').style.display   = 'none';
-    document.getElementById('admin-email').value = '';
-    document.getElementById('admin-mdp').value   = '';
-  }
-
-  // tables
-  function afficherTab(tab) {
-    document.getElementById('panel-users').style.display     = tab === 'users'     ? 'block' : 'none';
-    document.getElementById('panel-commandes').style.display = tab === 'commandes' ? 'block' : 'none';
-    document.getElementById('tab-users').className     = 'tab-btn' + (tab === 'users'     ? ' active' : '');
-    document.getElementById('tab-commandes').className = 'tab-btn' + (tab === 'commandes' ? ' active' : '');
-    if (tab === 'commandes') chargerCommandes();
-  }
-
- 
-  async function chargerStats() {
-    try {
-      const r = await fetch('/api/admin/stats');
-      const d = await r.json();
-      if (d.success) {
-        document.getElementById('stat-users').textContent     = d.stats.utilisateurs;
-        document.getElementById('stat-commandes').textContent = d.stats.commandes;
-        document.getElementById('stat-total').textContent     = parseFloat(d.stats.total || 0).toFixed(2);
-      }
-    } catch(e) {}
-  }
-
-  // utilisateur
-  async function chargerUtilisateurs() {
-    const wrap = document.getElementById('table-users-wrap');
-    wrap.innerHTML = '<div class="loading"><i class="ti ti-loader"></i> Chargement...</div>';
-    try {
-      const res  = await fetch('/api/admin/utilisateurs');
-      const data = await res.json();
-      if (!data.success) { wrap.innerHTML = '<div class="loading">Erreur chargement</div>'; return; }
-
-      const users = data.utilisateurs;
-      document.getElementById('count-users').textContent = users.length;
-      document.getElementById('stat-users').textContent  = users.length;
-
-      if (users.length === 0) {
-        wrap.innerHTML = '<div class="loading"><i class="ti ti-users"></i><br>Aucun utilisateur</div>';
-        return;
-      }
-
-      let html = '<table><thead><tr>' +
-        '<th>Utilisateur</th><th>Email</th><th>Téléphone</th><th>Rôle</th><th>Date inscription</th>' +
-        '</tr></thead><tbody>';
-
-      users.forEach(u => {
-        const initiales = (u.prenom?.[0] || '') + (u.nom?.[0] || '');
-        const role      = u.role === 'admin' ? 
-          '<span class="status-badge admin"><i class="ti ti-shield"></i> Admin</span>' :
-          '<span class="status-badge new"><i class="ti ti-user"></i> Client</span>';
-        const date = u.date_inscription ? new Date(u.date_inscription).toLocaleDateString('fr-FR') : '—';
-        html += `<tr>
-          <td><span class="avatar-sm">${initiales.toUpperCase()}</span>${u.prenom} ${u.nom}</td>
-          <td>${u.email}</td>
-          <td>${u.telephone || '—'}</td>
-          <td>${role}</td>
-          <td>${date}</td>
-        </tr>`;
-      });
-
-      html += '</tbody></table>';
-      wrap.innerHTML = html;
-    } catch(e) {
-      wrap.innerHTML = '<div class="loading">Erreur réseau</div>';
-    }
-  }
-
-  // commandes
-  async function chargerCommandes() {
-    const wrap = document.getElementById('table-commandes-wrap');
-    wrap.innerHTML = '<div class="loading"><i class="ti ti-loader"></i> Chargement...</div>';
-    try {
-      const res  = await fetch('/api/admin/commandes');
-      const data = await res.json();
-      if (!data.success) { wrap.innerHTML = '<div class="loading">Erreur chargement</div>'; return; }
-
-      const commandes = data.commandes;
-      document.getElementById('count-commandes').textContent = commandes.length;
-
-      if (commandes.length === 0) {
-        wrap.innerHTML = '<div class="loading"><i class="ti ti-shopping-bag"></i><br>Aucune commande</div>';
-        return;
-      }
-
-      let html = '<table><thead><tr>' +
-        '<th>#</th><th>Client</th><th>Email</th><th>Téléphone</th><th>Localisation</th><th>Total (DT)</th><th>Date</th>' +
-        '</tr></thead><tbody>';
-
-      commandes.forEach(c => {
-        const date = c.date_commande ? new Date(c.date_commande).toLocaleDateString('fr-FR') : '—';
-        html += `<tr>
-          <td><strong>#${c.id_commande}</strong></td>
-          <td>${c.prenom} ${c.nom}</td>
-          <td>${c.email}</td>
-          <td>${c.telephone || '—'}</td>
-          <td>${c.localisation || '—'}</td>
-          <td><strong>${parseFloat(c.total||0).toFixed(2)}</strong></td>
-          <td>${date}</td>
-        </tr>`;
-      });
-
-      html += '</tbody></table>';
-      wrap.innerHTML = html;
-    } catch(e) {
-      wrap.innerHTML = '<div class="loading">Erreur réseau</div>';
-    }
-  }
-
-  //login automatique si la session activer 
-  const adminSession = sessionStorage.getItem('admin');
-  if (adminSession) {
-    try {
-      const admin = JSON.parse(adminSession);
+/*AUTH*/
+async function connexionAdmin() {
+  const email = document.getElementById('admin-email').value.trim();
+  const mdp   = document.getElementById('admin-mdp').value;
+  const errEl = document.getElementById('error-login');
+  errEl.style.display = 'none';
+  if (!email || !mdp) { errEl.style.display = 'block'; return; }
+  try {
+    const res  = await fetch('/api/admin/connexion', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ email, mot_de_passe: mdp })
+    });
+    const data = await res.json();
+    if (data.success) {
+      sessionStorage.setItem('admin', JSON.stringify(data.admin));
       document.getElementById('login-wrap').style.display  = 'none';
       document.getElementById('dashboard').style.display   = 'block';
-      document.getElementById('admin-name').textContent    = admin.prenom + ' ' + admin.nom;
+      document.getElementById('admin-name').textContent    = data.admin.prenom + ' ' + data.admin.nom;
       chargerUtilisateurs();
       chargerStats();
-    } catch(e) { sessionStorage.removeItem('admin'); }
+    } else {
+      errEl.style.display = 'block';
+    }
+  } catch(e) {
+    errEl.textContent = 'Erreur réseau — serveur démarré ?';
+    errEl.style.display = 'block';
   }
-</script>
+}
 
+function deconnexion() {
+  sessionStorage.removeItem('admin');
+  document.getElementById('login-wrap').style.display  = 'flex';
+  document.getElementById('dashboard').style.display   = 'none';
+  document.getElementById('admin-email').value = '';
+  document.getElementById('admin-mdp').value   = '';
+}
+
+/*  TABS */
+function afficherTab(tab) {
+  ['users','commandes','categories'].forEach(t => {
+    document.getElementById('panel-'+t).style.display = t===tab ? 'block' : 'none';
+    document.getElementById('tab-'+t).className = 'tab-btn' + (t===tab ? ' active' : '');
+  });
+  if (tab === 'commandes')  chargerCommandes();
+  if (tab === 'categories') chargerCategoriesAdmin();
+}
+
+/*  STATS */
+async function chargerStats() {
+  try {
+    const r = await fetch('/api/admin/stats');
+    const d = await r.json();
+    if (d.success) {
+      document.getElementById('stat-users').textContent     = d.stats.utilisateurs;
+      document.getElementById('stat-commandes').textContent = d.stats.commandes;
+      document.getElementById('stat-total').textContent     = parseFloat(d.stats.total||0).toFixed(2);
+    }
+  } catch(e) {}
+
+  try {
+    const r2 = await fetch('/api/categories');
+    const d2 = await r2.json();
+    if (d2.success) document.getElementById('stat-cats').textContent = d2.categories.length;
+  } catch(e) {}
+}
+
+/* UTILISATEURS*/
+async function chargerUtilisateurs() {
+  const wrap = document.getElementById('table-users-wrap');
+  wrap.innerHTML = '<div class="loading"><i class="ti ti-loader"></i> Chargement...</div>';
+  try {
+    const res  = await fetch('/api/admin/utilisateurs');
+    const data = await res.json();
+    if (!data.success) { wrap.innerHTML = '<div class="loading">Erreur chargement</div>'; return; }
+    const users = data.utilisateurs;
+    document.getElementById('count-users').textContent = users.length;
+    document.getElementById('stat-users').textContent  = users.length;
+    if (!users.length) { wrap.innerHTML = '<div class="loading">Aucun utilisateur</div>'; return; }
+    let html = '<table><thead><tr><th>Utilisateur</th><th>Email</th><th>Téléphone</th><th>Rôle</th><th>Date inscription</th></tr></thead><tbody>';
+    users.forEach(u => {
+      const initiales = (u.prenom?.[0]||'')+(u.nom?.[0]||'');
+      const role = u.role==='admin'
+        ? '<span class="status-badge admin"><i class="ti ti-shield"></i> Admin</span>'
+        : '<span class="status-badge new"><i class="ti ti-user"></i> Client</span>';
+      const date = u.date_inscription ? new Date(u.date_inscription).toLocaleDateString('fr-FR') : '—';
+      html += `<tr>
+        <td><span class="avatar-sm">${initiales.toUpperCase()}</span>${u.prenom} ${u.nom}</td>
+        <td>${u.email}</td><td>${u.telephone||'—'}</td><td>${role}</td><td>${date}</td>
+      </tr>`;
+    });
+    html += '</tbody></table>';
+    wrap.innerHTML = html;
+  } catch(e) { wrap.innerHTML = '<div class="loading">Erreur réseau</div>'; }
+}
+
+/* COMMANDES */
+async function chargerCommandes() {
+  const wrap = document.getElementById('table-commandes-wrap');
+  wrap.innerHTML = '<div class="loading"><i class="ti ti-loader"></i> Chargement...</div>';
+  try {
+    const res  = await fetch('/api/admin/commandes');
+    const data = await res.json();
+    if (!data.success) { wrap.innerHTML = '<div class="loading">Erreur chargement</div>'; return; }
+    const commandes = data.commandes;
+    document.getElementById('count-commandes').textContent = commandes.length;
+    if (!commandes.length) { wrap.innerHTML = '<div class="loading">Aucune commande</div>'; return; }
+    let html = '<table><thead><tr><th>#</th><th>Client</th><th>Email</th><th>Téléphone</th><th>Localisation</th><th>Total (DT)</th><th>Date</th></tr></thead><tbody>';
+    commandes.forEach(c => {
+      const date = c.date_commande ? new Date(c.date_commande).toLocaleDateString('fr-FR') : '—';
+      html += `<tr>
+        <td><strong>#${c.id_commande}</strong></td>
+        <td>${c.prenom} ${c.nom}</td><td>${c.email}</td>
+        <td>${c.telephone||'—'}</td><td>${c.localisation||'—'}</td>
+        <td><strong>${parseFloat(c.total||0).toFixed(2)}</strong></td><td>${date}</td>
+      </tr>`;
+    });
+    html += '</tbody></table>';
+    wrap.innerHTML = html;
+  } catch(e) { wrap.innerHTML = '<div class="loading">Erreur réseau</div>'; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   CATÉGORIES — chargement + rendu liste
+══════════════════════════════════════════════════════════════ */
+let _categories = []; // cache local
+
+async function chargerCategoriesAdmin() {
+  const wrap = document.getElementById('cats-list-wrap');
+  wrap.innerHTML = '<div class="loading"><i class="ti ti-loader"></i> Chargement…</div>';
+  try {
+    const res  = await fetch('/api/categories');
+    const data = await res.json();
+    _categories = data.success ? data.categories : [];
+    afficherListeCats(_categories);
+    remplirSelects(_categories);
+    document.getElementById('stat-cats').textContent = _categories.length;
+  } catch(e) {
+    wrap.innerHTML = '<div class="loading">Erreur réseau</div>';
+  }
+}
+
+function afficherListeCats(cats) {
+  const wrap = document.getElementById('cats-list-wrap');
+  if (!cats.length) { wrap.innerHTML = '<p style="color:#9ca3af;font-size:.85rem;">Aucune catégorie.</p>'; return; }
+  wrap.innerHTML = '';
+  cats.forEach(cat => {
+    const div = document.createElement('div');
+    div.className = 'cat-item';
+    const scPills = (cat.sous_categories||[]).map(sc =>
+      `<span class="sc-pill"><i class="ti ${sc.icone||'ti-folder'}"></i>${sc.nom_sous_categorie}</span>`
+    ).join('');
+    div.innerHTML = `
+      <div class="cat-item-info">
+        <div class="cat-item-name">
+          <i class="ti ${cat.icone||'ti-tag'}"></i> ${cat.nom_categorie}
+        </div>
+        <div class="sous-cats-list">${scPills || '<span style="color:#ccc;font-size:.72rem">Aucune sous-catégorie</span>'}</div>
+      </div>
+      <button class="btn-del" onclick="supprimerCategorie(${cat.id_categorie}, this)">
+        <i class="ti ti-trash"></i> Supprimer
+      </button>`;
+    wrap.appendChild(div);
+  });
+}
+
+function remplirSelects(cats) {
+  // Select parent (pour sous-cat)
+  const selParent = document.getElementById('f-sc-parent');
+  const valParent = selParent.value;
+  selParent.innerHTML = '<option value="">— choisir —</option>';
+  cats.forEach(c => {
+    const o = document.createElement('option');
+    o.value = c.id_categorie; o.textContent = c.nom_categorie;
+    if (String(c.id_categorie) === valParent) o.selected = true;
+    selParent.appendChild(o);
+  });
+
+  // Select sous-cat (pour produit)
+  const selSc = document.getElementById('f-prod-sc');
+  const valSc = selSc.value;
+  selSc.innerHTML = '<option value="">— choisir —</option>';
+  cats.forEach(c => {
+    (c.sous_categories||[]).forEach(sc => {
+      const o = document.createElement('option');
+      o.value = sc.id_sous_categorie;
+      o.textContent = `${c.nom_categorie} › ${sc.nom_sous_categorie}`;
+      if (String(sc.id_sous_categorie) === valSc) o.selected = true;
+      selSc.appendChild(o);
+    });
+  });
+}
+
+/* CATÉGORIES — actions CRUD*/
+function showNotif(id, msg, ok) {
+  const el = document.getElementById(id);
+  el.textContent = msg;
+  el.className = 'notif ' + (ok ? 'ok' : 'err');
+  setTimeout(() => { el.className = 'notif'; }, 3500);
+}
+
+async function ajouterCategorie() {
+  const nom   = document.getElementById('f-cat-nom').value.trim();
+  const icone = document.getElementById('f-cat-icone').value.trim() || 'ti-tag';
+  const ordre = document.getElementById('f-cat-ordre').value;
+  if (!nom) { showNotif('notif-cat','⚠️ Nom requis', false); return; }
+  try {
+    const res  = await fetch('/api/admin/categorie', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ nom_categorie: nom, icone, ordre })
+    });
+    const data = await res.json();
+    if (data.success) {
+      showNotif('notif-cat', `✅ Catégorie "${nom}" créée !`, true);
+      document.getElementById('f-cat-nom').value = '';
+      chargerCategoriesAdmin(); // rafraîchir
+    } else {
+      showNotif('notif-cat', '❌ ' + data.message, false);
+    }
+  } catch(e) { showNotif('notif-cat','❌ Erreur réseau', false); }
+}
+
+async function ajouterSousCategorie() {
+  const parent = document.getElementById('f-sc-parent').value;
+  const nom    = document.getElementById('f-sc-nom').value.trim();
+  const icone  = document.getElementById('f-sc-icone').value.trim() || 'ti-folder';
+  if (!parent || !nom) { showNotif('notif-sc','⚠️ Catégorie et nom requis', false); return; }
+  try {
+    const res  = await fetch('/api/admin/sous-categorie', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ nom_sous_categorie: nom, id_categorie: parent, icone })
+    });
+    const data = await res.json();
+    if (data.success) {
+      showNotif('notif-sc', `✅ Sous-catégorie "${nom}" créée !`, true);
+      document.getElementById('f-sc-nom').value = '';
+      chargerCategoriesAdmin();
+    } else {
+      showNotif('notif-sc', '❌ ' + data.message, false);
+    }
+  } catch(e) { showNotif('notif-sc','❌ Erreur réseau', false); }
+}
+
+async function ajouterProduit() {
+  const sc    = document.getElementById('f-prod-sc').value;
+  const nom   = document.getElementById('f-prod-nom').value.trim();
+  const prix  = document.getElementById('f-prod-prix').value;
+  const img   = document.getElementById('f-prod-img').value.trim();
+  const qte   = document.getElementById('f-prod-qte').value;
+  const vet   = document.getElementById('f-prod-vet').checked;
+
+  if (!sc || !nom) { showNotif('notif-prod','⚠️ Sous-catégorie et nom requis', false); return; }
+  try {
+    const res  = await fetch('/api/admin/produit', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        nom_produit: nom, prix: parseFloat(prix)||0,
+        image_url: img, id_sous_categorie: sc,
+        quantite: parseInt(qte)||0, est_vetement: vet
+      })
+    });
+    const data = await res.json();
+    if (data.success) {
+      showNotif('notif-prod', `✅ Produit "${nom}" ajouté (id: ${data.id_produit}) !`, true);
+      document.getElementById('f-prod-nom').value  = '';
+      document.getElementById('f-prod-prix').value = '';
+      document.getElementById('f-prod-img').value  = '';
+      document.getElementById('f-prod-qte').value  = '0';
+      document.getElementById('f-prod-vet').checked = false;
+    } else {
+      showNotif('notif-prod', '❌ ' + data.message, false);
+    }
+  } catch(e) { showNotif('notif-prod','❌ Erreur réseau', false); }
+}
+
+async function supprimerCategorie(id, btn) {
+  if (!confirm('Supprimer cette catégorie et toutes ses sous-catégories ?')) return;
+  try {
+    const res  = await fetch(`/api/admin/categorie/${id}`, { method:'DELETE' });
+    const data = await res.json();
+    if (data.success) { chargerCategoriesAdmin(); }
+    else alert('Erreur : ' + data.message);
+  } catch(e) { alert('Erreur réseau'); }
+}
+
+/* AUTO-LOGIN session*/
+const adminSession = sessionStorage.getItem('admin');
+if (adminSession) {
+  try {
+    const admin = JSON.parse(adminSession);
+    document.getElementById('login-wrap').style.display  = 'none';
+    document.getElementById('dashboard').style.display   = 'block';
+    document.getElementById('admin-name').textContent    = admin.prenom + ' ' + admin.nom;
+    chargerUtilisateurs();
+    chargerStats();
+  } catch(e) { sessionStorage.removeItem('admin'); }
+}
+</script>
 </body>
 </html>

@@ -1,0 +1,70 @@
+/* ═══════════════════════════════════════════════════
+   buttons.css — Boutons cartes produits ALL-IN-ONE
+   À inclure dans toutes les pages produits
+   ═══════════════════════════════════════════════════ */
+
+/* ── Conteneur des boutons ── */
+.pc-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  padding: 8px 10px 4px;
+  margin-top: 4px;
+}
+
+/* ── Base commune ── */
+.pc-actions button {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+  white-space: nowrap;
+}
+
+.pc-actions button:active {
+  transform: scale(0.96);
+}
+
+/* ── Bouton Panier (outline violet) ── */
+.btn-panier {
+  background: transparent !important;
+  color: #7c3aed !important;
+  border: 2px solid #7c3aed !important;
+  box-shadow: none;
+}
+
+.btn-panier:hover {
+  background: #ede9fe !important;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.18) !important;
+  transform: translateY(-1px);
+}
+
+/* ── Bouton Acheter (gradient violet → indigo) ── */
+.btn-commander-direct {
+  background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+}
+
+.btn-commander-direct:hover {
+  background: linear-gradient(135deg, #6d28d9 0%, #4338ca 100%) !important;
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5) !important;
+  transform: translateY(-1px);
+}
+
+/* ── Icônes ── */
+.pc-actions button i {
+  font-size: 14px;
+  line-height: 1;
+}

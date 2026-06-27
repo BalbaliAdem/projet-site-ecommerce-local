@@ -5,88 +5,247 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Montres Connectées</title>
   <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/buttons.css">
   <script src="js/script.js"></script>
-</head>
+  <style>
+    /* ─── Badge stock global (toujours visible) ─── */
+    .badge-stock {
+      display:inline-block; font-size:11px; font-weight:600;
+      padding:2px 8px; border-radius:20px; margin:5px 0 2px;
+    }
+    .s-ok   { background:#dcfce7; color:#16a34a; }
+    .s-bas  { background:#fef9c3; color:#a16207; }
+    .s-zero { background:#fee2e2; color:#dc2626; }
 
+    /* ─── Badge stock détaillé (visible après clic sur la carte) ─── */
+    .stock-detail {
+      display:none;
+      align-items:center; gap:5px;
+      font-size:12px; font-weight:700;
+      padding:4px 12px; border-radius:20px;
+      margin:4px 0 6px;
+    }
+    .stock-detail.visible { display:inline-flex; }
+    .stock-detail.sd-ok   { background:#dcfce7; color:#16a34a; }
+    .stock-detail.sd-bas  { background:#fef9c3; color:#a16207; }
+    .stock-detail.sd-zero { background:#fee2e2; color:#dc2626; }
+
+    /* ─── Carte épuisée ─── */
+    .pc { position:relative; cursor:pointer; }
+    .pc.tout-epuise { opacity:.65; pointer-events:none; }
+    .pc.tout-epuise .pc-actions { display:none; }
+    .epuise-banner {
+      position:absolute; top:10px; right:-8px;
+      background:#dc2626; color:#fff; font-size:10px; font-weight:700;
+      padding:3px 10px; border-radius:4px; transform:rotate(3deg);
+      box-shadow:0 2px 6px rgba(220,38,38,.35); z-index:3;
+    }
+
+    /* ─── Carte active (sélectionnée) ─── */
+    .pc.active-card {
+      outline: 2px solid #6366f1;
+      box-shadow: 0 0 0 4px rgba(99,102,241,.12);
+    }
+
+    /* ─── Styles image spécifiques (conservés de l'original) ─── */
+    #fit4 { height: 80%; }
+  </style>
+</head>
 <body>
 
 <div class="produits-grid">
 
-  <div class="pc" onclick="commander('Apple Watch Series 10','499.99','./images/teleEtAcces/apple watch series 10.jpg')">
+  <div class="pc" data-id="85" data-nom="Apple Watch Series 10" data-prix="499.99" data-img="./images/teleEtAcces/apple watch series 10.jpg">
     <img src="./images/teleEtAcces/apple watch series 10.jpg" alt="Apple Watch Series 10">
     <h3>Apple Watch Series 10</h3>
     <p>$499.99</p>
   </div>
 
-  <div class="pc" onclick="commander('Samsung Galaxy Watch 7','349.99','./images/teleEtAcces/samsung galaxy watch 7.jpg')">
+  <div class="pc" data-id="86" data-nom="Samsung Galaxy Watch 7" data-prix="349.99" data-img="./images/teleEtAcces/samsung galaxy watch 7.jpg">
     <img src="./images/teleEtAcces/samsung galaxy watch 7.jpg" alt="Samsung Galaxy Watch 7">
     <h3>Samsung Galaxy Watch 7</h3>
     <p>$349.99</p>
   </div>
 
-  <div class="pc" onclick="commander('Samsung Galaxy Watch Ultra','599.99','./images/teleEtAcces/samsung galaxy watch ultra.jpg')">
+  <div class="pc" data-id="87" data-nom="Samsung Galaxy Watch Ultra" data-prix="599.99" data-img="./images/teleEtAcces/samsung galaxy watch ultra.jpg">
     <img src="./images/teleEtAcces/samsung galaxy watch ultra.jpg" alt="Samsung Galaxy Watch Ultra">
     <h3>Samsung Galaxy Watch Ultra</h3>
     <p>$599.99</p>
   </div>
 
-  <div class="pc" onclick="commander('Xiaomi Watch S4','199.99','./images/teleEtAcces/xiaomi watch s4.jpg')">
+  <div class="pc" data-id="88" data-nom="Xiaomi Watch S4" data-prix="199.99" data-img="./images/teleEtAcces/xiaomi watch s4.jpg">
     <img src="./images/teleEtAcces/xiaomi watch s4.jpg" alt="Xiaomi Watch S4">
     <h3>Xiaomi Watch S4</h3>
     <p>$199.99</p>
   </div>
 
-  <div class="pc" onclick="commander('Huawei Watch Fit 4','179.99','./images/teleEtAcces/huawei watch fit 4.jpg')">
+  <div class="pc" data-id="89" data-nom="Huawei Watch Fit 4" data-prix="179.99" data-img="./images/teleEtAcces/huawei watch fit 4.jpg">
     <img id="fit4" src="./images/teleEtAcces/huawei watch fit 4.jpg" alt="Huawei Watch Fit 4">
     <h3>Huawei Watch Fit 4</h3>
     <p>$179.99</p>
   </div>
 
-  <div class="pc" onclick="commander('Huawei Watch GT 5','299.99','./images/teleEtAcces/huawei watch gt 5.jpg')">
+  <div class="pc" data-id="90" data-nom="Huawei Watch GT 5" data-prix="299.99" data-img="./images/teleEtAcces/huawei watch gt 5.jpg">
     <img src="./images/teleEtAcces/huawei watch gt 5.jpg" alt="Huawei Watch GT 5">
     <h3>Huawei Watch GT 5</h3>
     <p>$299.99</p>
   </div>
 
-  <div class="pc" onclick="commander('Garmin Venu 3','449.99','./images/teleEtAcces/garmin venu 3.jpg')">
+  <div class="pc" data-id="91" data-nom="Garmin Venu 3" data-prix="449.99" data-img="./images/teleEtAcces/garmin venu 3.jpg">
     <img src="./images/teleEtAcces/garmin venu 3.jpg" alt="Garmin Venu 3">
     <h3>Garmin Venu 3</h3>
     <p>$449.99</p>
   </div>
 
-  <div class="pc" onclick="commander('Amazfit Balance','229.99','./images/teleEtAcces/amazfit balance.jpg')">
+  <div class="pc" data-id="92" data-nom="Amazfit Balance" data-prix="229.99" data-img="./images/teleEtAcces/amazfit balance.jpg">
     <img src="./images/teleEtAcces/amazfit balance.jpg" alt="Amazfit Balance">
     <h3>Amazfit Balance</h3>
     <p>$229.99</p>
   </div>
 
-  <div class="pc" onclick="commander('Redmi Watch 5','99.99','./images/teleEtAcces/redmi watch 5.jpg')">
+  <div class="pc" data-id="93" data-nom="Redmi Watch 5" data-prix="99.99" data-img="./images/teleEtAcces/redmi watch 5.jpg">
     <img src="./images/teleEtAcces/redmi watch 5.jpg" alt="Redmi Watch 5">
     <h3>Redmi Watch 5</h3>
     <p>$99.99</p>
   </div>
 
-  <div class="pc" onclick="commander('OnePlus Watch 3','279.99','./images/teleEtAcces/oneplus watch 3.png')">
+  <div class="pc" data-id="94" data-nom="OnePlus Watch 3" data-prix="279.99" data-img="./images/teleEtAcces/oneplus watch 3.png">
     <img src="./images/teleEtAcces/oneplus watch 3.png" alt="OnePlus Watch 3">
     <h3>OnePlus Watch 3</h3>
     <p>$279.99</p>
   </div>
 
-  <div class="pc" onclick="commander('Google Pixel Watch 3','399.99','./images/teleEtAcces/google pixel watch 3.jpg')">
-    <img id="fit4" src="./images/teleEtAcces/google pixel watch 3.jpg" alt="Google Pixel Watch 3">
+  <div class="pc" data-id="95" data-nom="Google Pixel Watch 3" data-prix="399.99" data-img="./images/teleEtAcces/google pixel watch 3.jpg">
+    <img src="./images/teleEtAcces/google pixel watch 3.jpg" alt="Google Pixel Watch 3">
     <h3>Google Pixel Watch 3</h3>
     <p>$399.99</p>
   </div>
 
-  <div class="pc" onclick="commander('Honor Watch 5','149.99','./images/teleEtAcces/honor watch 5.jpg')">
+  <div class="pc" data-id="96" data-nom="Honor Watch 5" data-prix="149.99" data-img="./images/teleEtAcces/honor watch 5.jpg">
     <img src="./images/teleEtAcces/honor watch 5.jpg" alt="Honor Watch 5">
     <h3>Honor Watch 5</h3>
     <p>$149.99</p>
   </div>
 
 </div>
-<style>
-    #fit4{height: 80%;}
-</style>
+
+<script>
+document.querySelectorAll('.pc[data-id]').forEach(async carte => {
+  const id   = carte.dataset.id;
+  const nom  = carte.dataset.nom;
+  const prix = carte.dataset.prix;
+  const img  = carte.dataset.img;
+
+  let quantite = 0;
+  try {
+    const r = await fetch(`/api/produit/${id}/stock`);
+    const d = await r.json();
+    if (d.success) quantite = d.quantite;
+  } catch(e) {}
+
+  let badgeGlobal = '';
+  if (quantite === 0)     badgeGlobal = '<span class="badge-stock s-zero">⛔ Épuisé</span>';
+  else if (quantite <= 5) badgeGlobal = `<span class="badge-stock s-bas">⚠️ Plus que ${quantite}</span>`;
+  else                    badgeGlobal = '<span class="badge-stock s-ok">✅ En stock</span>';
+  carte.querySelector('p').insertAdjacentHTML('afterend', badgeGlobal);
+
+  let sdCls, sdTxt;
+  if (quantite === 0)     { sdCls='sd-zero'; sdTxt=`⛔ Épuisé`; }
+  else if (quantite <= 5) { sdCls='sd-bas';  sdTxt=`⚠️ ${quantite} en stock`; }
+  else                    { sdCls='sd-ok';   sdTxt=`✅ ${quantite} en stock`; }
+
+  const detailEl = document.createElement('span');
+  detailEl.className = `stock-detail ${sdCls}`;
+  detailEl.textContent = sdTxt;
+
+  if (quantite === 0) {
+    carte.classList.add('tout-epuise');
+    carte.style.pointerEvents = 'none';
+    carte.insertAdjacentHTML('beforeend', '<span class="epuise-banner">ÉPUISÉ</span>');
+    return;
+  }
+
+  const actions = document.createElement('div');
+  actions.className = 'pc-actions';
+  actions.innerHTML = `
+    <button class="btn-panier btn-panier-active"
+      onclick="event.stopPropagation(); ajouterAuPanierMontres('${id}','${nom}','${prix}','${img}')">
+      <i class="ti ti-shopping-cart-plus"></i> Panier
+    </button>
+    <button class="btn-commander-direct"
+      onclick="event.stopPropagation(); commanderMontres('${id}','${nom}','${prix}','${img}')">
+      <i class="ti ti-bolt"></i> Acheter
+    </button>`;
+
+  carte.appendChild(detailEl);
+  carte.appendChild(actions);
+
+  carte.addEventListener('click', e => {
+    if (e.target.closest('button')) return;
+    const estActive = carte.classList.contains('active-card');
+    document.querySelectorAll('.pc.active-card').forEach(c => {
+      c.classList.remove('active-card');
+      const sd = c.querySelector('.stock-detail');
+      if (sd) sd.classList.remove('visible');
+    });
+    if (!estActive) {
+      carte.classList.add('active-card');
+      detailEl.classList.add('visible');
+    }
+  });
+});
+
+function majAffichageStock(carte, nouvelleQte) {
+  const bg = carte.querySelector('.badge-stock');
+  if (bg) {
+    bg.className = 'badge-stock';
+    if (nouvelleQte === 0)      { bg.className += ' s-zero'; bg.textContent = '⛔ Épuisé'; }
+    else if (nouvelleQte <= 5)  { bg.className += ' s-bas';  bg.textContent = `⚠️ Plus que ${nouvelleQte}`; }
+    else                        { bg.className += ' s-ok';   bg.textContent = '✅ En stock'; }
+  }
+  const sd = carte.querySelector('.stock-detail');
+  if (sd) {
+    sd.className = sd.className.replace(/sd-\w+/, '');
+    if (nouvelleQte === 0)      { sd.classList.add('sd-zero'); sd.textContent = '⛔ Épuisé'; }
+    else if (nouvelleQte <= 5)  { sd.classList.add('sd-bas');  sd.textContent = `⚠️ ${nouvelleQte} en stock`; }
+    else                        { sd.classList.add('sd-ok');   sd.textContent = `✅ ${nouvelleQte} en stock`; }
+  }
+  if (nouvelleQte === 0) {
+    carte.classList.add('tout-epuise');
+    carte.classList.remove('active-card');
+    carte.style.pointerEvents = 'none';
+    if (sd) sd.classList.remove('visible');
+    carte.insertAdjacentHTML('beforeend', '<span class="epuise-banner">ÉPUISÉ</span>');
+    const actions = carte.querySelector('.pc-actions');
+    if (actions) actions.style.display = 'none';
+  }
+}
+
+async function commanderMontres(id, nom, prix, img) {
+  const carte = document.querySelector(`.pc[data-id="${id}"]`);
+  await fetch('/api/produit/' + id + '/decrementer', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }
+  });
+  try {
+    const r = await fetch(`/api/produit/${id}/stock`);
+    const d = await r.json();
+    if (d.success && carte) majAffichageStock(carte, d.quantite);
+  } catch(e) {}
+  commander(nom, prix, img);
+}
+
+async function ajouterAuPanierMontres(id, nom, prix, img) {
+  const carte = document.querySelector(`.pc[data-id="${id}"]`);
+  await fetch('/api/produit/' + id + '/decrementer', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }
+  });
+  try {
+    const r = await fetch(`/api/produit/${id}/stock`);
+    const d = await r.json();
+    if (d.success && carte) majAffichageStock(carte, d.quantite);
+  } catch(e) {}
+  ajouterAuPanier(nom, prix, img);
+}
+</script>
 </body>
 </html>

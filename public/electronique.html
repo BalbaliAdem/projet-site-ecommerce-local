@@ -5,83 +5,259 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Électronique</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/buttons.css">
     <script src="js/script.js"></script>
+    <style>
+      /* ─── Badge stock global (toujours visible) ─── */
+      .badge-stock {
+        display:inline-block; font-size:11px; font-weight:600;
+        padding:2px 8px; border-radius:20px; margin:5px 0 2px;
+      }
+      .s-ok   { background:#dcfce7; color:#16a34a; }
+      .s-bas  { background:#fef9c3; color:#a16207; }
+      .s-zero { background:#fee2e2; color:#dc2626; }
+
+      /* ─── Badge stock détaillé (visible après clic sur la carte) ─── */
+      .stock-detail {
+        display:none;
+        align-items:center; gap:5px;
+        font-size:12px; font-weight:700;
+        padding:4px 12px; border-radius:20px;
+        margin:4px 0 6px;
+      }
+      .stock-detail.visible { display:inline-flex; }
+      .stock-detail.sd-ok   { background:#dcfce7; color:#16a34a; }
+      .stock-detail.sd-bas  { background:#fef9c3; color:#a16207; }
+      .stock-detail.sd-zero { background:#fee2e2; color:#dc2626; }
+
+      /* ─── Carte épuisée ─── */
+      .pc { position:relative; cursor:pointer; }
+      .pc.tout-epuise { opacity:.65; pointer-events:none; }
+      .pc.tout-epuise .pc-actions { display:none; }
+      .epuise-banner {
+        position:absolute; top:10px; right:-8px;
+        background:#dc2626; color:#fff; font-size:10px; font-weight:700;
+        padding:3px 10px; border-radius:4px; transform:rotate(3deg);
+        box-shadow:0 2px 6px rgba(220,38,38,.35); z-index:3;
+      }
+
+      /* ─── Carte active (sélectionnée) ─── */
+      .pc.active-card {
+        outline: 2px solid #6366f1;
+        box-shadow: 0 0 0 4px rgba(99,102,241,.12);
+      }
+    </style>
 </head>
 <body>
 <div class="produits-grid">
 
-  <div class="pc" onclick="commander('PS5 Slim','649.99','./images/ps5.jpg')">
+  <!-- data-id = id_produit dans la table `produits` -->
+  <div class="pc" data-id="37" data-nom="PS5 Slim" data-prix="649.99" data-img="./images/ps5.jpg">
     <img src="./images/ps5.jpg" alt="PS5 Slim">
     <h3>PS5 Slim</h3>
     <p>$649.99</p>
   </div>
 
-  <div class="pc" onclick="commander('Nintendo Switch 1','399.99','./images/switch1.jpg')">
+  <div class="pc" data-id="38" data-nom="Nintendo Switch 1" data-prix="399.99" data-img="./images/switch1.jpg">
     <img src="./images/switch1.jpg" alt="Switch 1">
     <h3>Nintendo Switch 1</h3>
     <p>$399.99</p>
   </div>
 
-  <div class="pc" onclick="commander('PS4 Slim','379.99','./images/ps4.jpg')">
+  <div class="pc" data-id="39" data-nom="PS4 Slim" data-prix="379.99" data-img="./images/ps4.jpg">
     <img src="./images/ps4.jpg" alt="PS4 Slim">
     <h3>PS4 Slim</h3>
     <p>$379.99</p>
   </div>
 
-  <div class="pc" onclick="commander('XBOX ONE','449.99','./images/xbox 1.jfif')">
+  <div class="pc" data-id="40" data-nom="XBOX ONE" data-prix="449.99" data-img="./images/xbox 1.jfif">
     <img src="./images/xbox 1.jfif" alt="XBOX ONE">
     <h3>XBOX ONE</h3>
     <p>$449.99</p>
   </div>
 
-  <div class="pc" onclick="commander('XBOX SERIES X','549.99','./images/xbox serie x.jfif')">
+  <div class="pc" data-id="41" data-nom="XBOX SERIES X" data-prix="549.99" data-img="./images/xbox serie x.jfif">
     <img src="./images/xbox serie x.jfif" alt="XBOX SERIES X">
     <h3>XBOX SERIES X</h3>
     <p>$549.99</p>
   </div>
 
-  <div class="pc" onclick="commander('PS4 PRO','529.99','./images/ps4 pro.avif')">
+  <div class="pc" data-id="42" data-nom="PS4 PRO" data-prix="529.99" data-img="./images/ps4 pro.avif">
     <img src="./images/ps4 pro.avif" alt="PS4 PRO">
     <h3>PS4 PRO</h3>
     <p>$529.99</p>
   </div>
 
-  <div class="pc" onclick="commander('PS5 PRO','899.99','./images/console-ps5-pro.jpg')">
+  <div class="pc" data-id="43" data-nom="PS5 PRO" data-prix="899.99" data-img="./images/console-ps5-pro.jpg">
     <img src="./images/console-ps5-pro.jpg" alt="PS5 PRO">
     <h3>PS5 PRO</h3>
     <p>$899.99</p>
   </div>
 
-  <div class="pc" onclick="commander('Nintendo Switch 2','599.99','./images/switch 2.jpg')">
+  <div class="pc" data-id="44" data-nom="Nintendo Switch 2" data-prix="599.99" data-img="./images/switch 2.jpg">
     <img src="./images/switch 2.jpg" alt="Switch 2">
     <h3>Switch 2</h3>
     <p>$599.99</p>
   </div>
 
-  <div class="pc" onclick="commander('Nintendo 3DS XL','199.99','./images/nintendo 3DS XL.jpg')">
+  <div class="pc" data-id="45" data-nom="Nintendo 3DS XL" data-prix="199.99" data-img="./images/nintendo 3DS XL.jpg">
     <img src="./images/nintendo 3DS XL.jpg" alt="Nintendo 3DS XL">
     <h3>Nintendo 3DS XL</h3>
     <p>$199.99</p>
   </div>
 
-  <div class="pc" onclick="commander('Nintendo Switch Lite','199.99','./images/switch lite .jpg')">
+  <div class="pc" data-id="46" data-nom="Nintendo Switch Lite" data-prix="199.99" data-img="./images/switch lite .jpg">
     <img src="./images/switch lite .jpg" alt="Nintendo Switch Lite">
     <h3>Nintendo Switch Lite</h3>
     <p>$199.99</p>
   </div>
 
-  <div class="pc" onclick="commander('XBOX SERIES S','449.99','./images/xbox series s.jpg')">
+  <div class="pc" data-id="47" data-nom="XBOX SERIES S" data-prix="449.99" data-img="./images/xbox series s.jpg">
     <img src="./images/xbox series s.jpg" alt="XBOX SERIES S">
     <h3>XBOX SERIES S</h3>
     <p>$449.99</p>
   </div>
 
-  <div class="pc" onclick="commander('Steam Deck','749.99','./images/steam-deck.jpg')">
+  <div class="pc" data-id="48" data-nom="Steam Deck" data-prix="749.99" data-img="./images/steam-deck.jpg">
     <img src="./images/steam-deck.jpg" alt="Steam Deck">
     <h3>Steam Deck</h3>
     <p>$749.99</p>
   </div>
 
 </div>
+
+<script>
+document.querySelectorAll('.pc[data-id]').forEach(async carte => {
+  const id   = carte.dataset.id;
+  const nom  = carte.dataset.nom;
+  const prix = carte.dataset.prix;
+  const img  = carte.dataset.img;
+
+  // ── Charger le stock ──
+  let quantite = 0;
+  try {
+    const r = await fetch(`/api/produit/${id}/stock`);
+    const d = await r.json();
+    if (d.success) quantite = d.quantite;
+  } catch(e) {}
+
+  // ── Badge global (toujours affiché sous le prix) ──
+  let badgeGlobal = '';
+  if (quantite === 0)     badgeGlobal = '<span class="badge-stock s-zero">⛔ Épuisé</span>';
+  else if (quantite <= 5) badgeGlobal = `<span class="badge-stock s-bas">⚠️ Plus que ${quantite}</span>`;
+  else                    badgeGlobal = '<span class="badge-stock s-ok">✅ En stock</span>';
+  carte.querySelector('p').insertAdjacentHTML('afterend', badgeGlobal);
+
+  // ── Badge détaillé avec chiffre exact (affiché au clic) ──
+  let sdCls, sdTxt;
+  if (quantite === 0)     { sdCls='sd-zero'; sdTxt='⛔ Épuisé'; }
+  else if (quantite <= 5) { sdCls='sd-bas';  sdTxt=`⚠️ ${quantite} en stock`; }
+  else                    { sdCls='sd-ok';   sdTxt=`✅ ${quantite} en stock`; }
+
+  const detailEl = document.createElement('span');
+  detailEl.className = `stock-detail ${sdCls}`;
+  detailEl.textContent = sdTxt;
+
+  // ── Carte épuisée ──
+  if (quantite === 0) {
+    carte.classList.add('tout-epuise');
+    carte.style.pointerEvents = 'none';
+    carte.insertAdjacentHTML('beforeend', '<span class="epuise-banner">ÉPUISÉ</span>');
+    return;
+  }
+
+  //Boutons Panier / Acheter
+  const actions = document.createElement('div');
+  actions.className = 'pc-actions';
+  actions.innerHTML = `
+    <button class="btn-panier btn-panier-active"
+      onclick="event.stopPropagation(); ajouterAuPanierConsole('${id}','${nom}','${prix}','${img}')">
+      <i class="ti ti-shopping-cart-plus"></i> Panier
+    </button>
+    <button class="btn-commander-direct"
+      onclick="event.stopPropagation(); commanderConsole('${id}','${nom}','${prix}','${img}')">
+      <i class="ti ti-bolt"></i> Acheter
+    </button>`;
+
+  // Badge détaillé AVANT les boutons
+  carte.appendChild(detailEl);
+  carte.appendChild(actions);
+
+  // Clic sur la carte → afficher le stock exact 
+  carte.addEventListener('click', e => {
+    if (e.target.closest('button')) return;
+
+    const estActive = carte.classList.contains('active-card');
+
+    document.querySelectorAll('.pc.active-card').forEach(c => {
+      c.classList.remove('active-card');
+      const sd = c.querySelector('.stock-detail');
+      if (sd) sd.classList.remove('visible');
+    });
+
+    if (!estActive) {
+      carte.classList.add('active-card');
+      detailEl.classList.add('visible');
+    }
+  });
+});
+
+//Met à jour les badges après décrément
+function majAffichageStock(carte, nouvelleQte) {
+  const bg = carte.querySelector('.badge-stock');
+  if (bg) {
+    bg.className = 'badge-stock';
+    if (nouvelleQte === 0)     { bg.className += ' s-zero'; bg.textContent = '⛔ Épuisé'; }
+    else if (nouvelleQte <= 5) { bg.className += ' s-bas';  bg.textContent = `⚠️ Plus que ${nouvelleQte}`; }
+    else                       { bg.className += ' s-ok';   bg.textContent = '✅ En stock'; }
+  }
+
+  const sd = carte.querySelector('.stock-detail');
+  if (sd) {
+    sd.className = sd.className.replace(/sd-\w+/, '').trim();
+    if (nouvelleQte === 0)     { sd.classList.add('sd-zero'); sd.textContent = '⛔ Épuisé'; }
+    else if (nouvelleQte <= 5) { sd.classList.add('sd-bas');  sd.textContent = `⚠️ ${nouvelleQte} en stock`; }
+    else                       { sd.classList.add('sd-ok');   sd.textContent = `✅ ${nouvelleQte} en stock`; }
+  }
+
+  if (nouvelleQte === 0) {
+    carte.classList.add('tout-epuise');
+    carte.classList.remove('active-card');
+    carte.style.pointerEvents = 'none';
+    if (sd) sd.classList.remove('visible');
+    carte.insertAdjacentHTML('beforeend', '<span class="epuise-banner">ÉPUISÉ</span>');
+    const actions = carte.querySelector('.pc-actions');
+    if (actions) actions.style.display = 'none';
+  }
+}
+
+// Commander : décrémente → relit stock → met à jour → ouvre formulaire
+async function commanderConsole(id, nom, prix, img) {
+  const carte = document.querySelector(`.pc[data-id="${id}"]`);
+  await fetch('/api/produit/' + id + '/decrementer', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }
+  });
+  try {
+    const r = await fetch(`/api/produit/${id}/stock`);
+    const d = await r.json();
+    if (d.success && carte) majAffichageStock(carte, d.quantite);
+  } catch(e) {}
+  commander(nom, prix, img);
+}
+
+// Panier : décrémente → relit stock → met à jour → ajoute au panier
+async function ajouterAuPanierConsole(id, nom, prix, img) {
+  const carte = document.querySelector(`.pc[data-id="${id}"]`);
+  await fetch('/api/produit/' + id + '/decrementer', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }
+  });
+  try {
+    const r = await fetch(`/api/produit/${id}/stock`);
+    const d = await r.json();
+    if (d.success && carte) majAffichageStock(carte, d.quantite);
+  } catch(e) {}
+  ajouterAuPanier(nom, prix, img);
+}
+</script>
 </body>
 </html>

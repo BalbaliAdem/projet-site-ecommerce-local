@@ -138,6 +138,64 @@
     }
     .account-btn:hover { color: #38bdf8; border-color: #38bdf8; background: rgba(56,189,248,0.08); }
     .account-btn i { font-size: 20px; }
+
+    /* ── État connecté ── */
+    .account-btn.connecte {
+      border-color: #22c55e;
+      color: #22c55e;
+      background: rgba(34,197,94,0.08);
+    }
+    .account-btn.connecte:hover {
+      border-color: #16a34a;
+      color: #16a34a;
+      background: rgba(34,197,94,0.15);
+    }
+    .account-btn.connecte i { color: #22c55e; }
+
+    /* Dropdown déconnexion */
+    .account-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      background: #1e293b;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      min-width: 200px;
+      z-index: 999;
+      overflow: hidden;
+    }
+    .account-dropdown .drop-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+    .account-dropdown .drop-header strong {
+      display: block;
+      font-size: 0.88rem;
+      color: #fff;
+      margin-top: 2px;
+    }
+    .account-dropdown a, .account-dropdown button {
+      display: flex; align-items: center; gap: 10px;
+      width: 100%; padding: 10px 16px;
+      font-size: 0.85rem; font-weight: 500;
+      color: #d1d5db; text-decoration: none;
+      background: none; border: none; cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      transition: background .15s, color .15s;
+      text-align: left;
+    }
+    .account-dropdown a:hover, .account-dropdown button:hover {
+      background: rgba(255,255,255,0.06); color: #fff;
+    }
+    .account-dropdown .btn-deco { color: #f87171; }
+    .account-dropdown .btn-deco:hover { background: rgba(239,68,68,0.1); color: #ef4444; }
+    .account-wrap { position: relative; margin-left: 0.5rem; }
+    .account-wrap:hover .account-dropdown,
+    .account-wrap.open .account-dropdown { display: block; }
     .cart-btn i { font-size: 20px; }
     .cart-badge {
       background: #ef4444;
@@ -375,12 +433,15 @@
     .footer-info span { display: flex; align-items: center; gap: 6px; }
     .footer-info i { color: #38bdf8; }
     #qr { width: 70px; height: 70px; border-radius: 8px; }
+    #logo {width: 5%;
+    height: 100%;}
   </style>
 </head>
 <body>
-
+  
   <nav class="navbar">
-    <div class="logo">🛍️ Super<span>Market</span> Together</div>
+    <img id="logo" src="images/logo all in one (2).png" alt="">
+    <div class="logo" onclick="allerAccueil()" style="cursor:pointer;"> ALL <span>- IN -</span> ONE</div>
 
     <ul class="nav-menu">
       <li>
@@ -444,10 +505,25 @@
     </ul>
 
     <!-- Bouton compte -->
-    <a class="account-btn" href="inscription.html" target="contenu" title="Mon compte">
-      <i class="ti ti-user-circle"></i>
-      Compte
-    </a>
+    <div class="account-wrap" id="account-wrap">
+      <a class="account-btn" id="account-btn" href="connexion.html" target="contenu" title="Mon compte">
+        <i class="ti ti-user-circle" id="account-icon"></i>
+        <span id="account-label">Compte</span>
+      </a>
+      <!-- Dropdown visible uniquement si connecté -->
+      <div class="account-dropdown" id="account-dropdown">
+        <div class="drop-header">
+          Connecté en tant que
+          <strong id="drop-username">—</strong>
+        </div>
+        <a href="connexion.html" target="contenu">
+          <i class="ti ti-user"></i> Mon compte
+        </a>
+        <button class="btn-deco" onclick="seDeconnecter()">
+          <i class="ti ti-logout"></i> Se déconnecter
+        </button>
+      </div>
+    </div>
 
     <!-- Bouton panier -->
     <button class="cart-btn" onclick="ouvrirPanier()" title="Mon panier">
@@ -457,10 +533,10 @@
     </button>
   </nav>
 
-  <!-- ══ OVERLAY ══ -->
+  <!--OVERLAY-->
   <div class="cart-overlay" id="cart-overlay" onclick="fermerPanier()"></div>
 
-  <!-- ══ TIROIR PANIER ══ -->
+  <!--TIROIR PANIER-->
   <div class="cart-drawer" id="cart-drawer">
     <div class="cart-header">
       <h2><i class="ti ti-shopping-cart"></i> Mon Panier</h2>
@@ -485,17 +561,17 @@
       </button>
     </div>
   </div>
-
-  <!-- ══ TOAST ══ -->
+    
+  <!--TOAST-->
   <div class="toast" id="toast">
     <i class="ti ti-circle-check"></i>
     <span id="toast-msg">Article ajouté !</span>
   </div>
 
-  <!-- ══ CONTENU ══ -->
+  <!--CONTENU-->
   <div class="page-wrapper">
     <header class="hero">
-      <h1>Bienvenu dans SuperMarket Together</h1>
+      <h1>Bienvenu dans ALL-IN-ONE</h1>
       <p>Trouvez les meilleurs produits par catégorie.</p>
     </header>
     <div class="main-content">
@@ -503,17 +579,17 @@
     </div>
     <footer>
       <div class="footer-info">
-        <span><i class="ti ti-mail"></i> SuperMarketTogether@SuperMarket.com</span>
+        <span><i class="ti ti-mail"></i> ALL-IN-ONE@SuperMarket.com</span>
         <span><i class="ti ti-phone"></i> 99 988 777</span>
         <span><i class="ti ti-map-pin"></i> sud, Tunisie</span>
       </div>
-      <p>&copy; 2025 SuperMarket Together. Tous droits réservés.</p>
+      <p>&copy; 2026 ALL-IN-ONE. Tous droits réservés.</p>
       <img id="qr" src="./images/welcome_magazine_qr.png" alt="QR Code">
     </footer>
   </div>
 
   <script>
-    // ── Panier (localStorage) ──────────────────────
+    // Panier (localStorage)
     function getPanier() {
       try { return JSON.parse(localStorage.getItem("panier")) || []; }
       catch(e) { return []; }
@@ -647,6 +723,68 @@
 
     // Init
     majBadge();
+
+    //Gestion du bouton Compte selon session 
+    function majBoutonCompte() {
+      const raw = sessionStorage.getItem("utilisateur");
+      const btn   = document.getElementById("account-btn");
+      const label = document.getElementById("account-label");
+      const icon  = document.getElementById("account-icon");
+      const dropUser = document.getElementById("drop-username");
+
+      if (!raw) return;
+
+      let user;
+      try { user = JSON.parse(raw); } catch(e) { return; }
+
+      label.textContent = "Bonjour, " + user.prenom;
+      icon.className    = "ti ti-user-check";
+      btn.classList.add("connecte");
+      btn.removeAttribute("href");
+      btn.style.cursor = "default";
+      dropUser.textContent = user.prenom + " " + user.nom;
+    }
+
+    function seDeconnecter() {
+      sessionStorage.removeItem("utilisateur");
+      const btn   = document.getElementById("account-btn");
+      const label = document.getElementById("account-label");
+      const icon  = document.getElementById("account-icon");
+      label.textContent = "Compte";
+      icon.className    = "ti ti-user-circle";
+      btn.classList.remove("connecte");
+      btn.setAttribute("href", "connexion.html");
+      btn.style.cursor = "";
+      document.getElementById("account-wrap").classList.remove("open");
+      document.getElementById("iframe-contenu").src = "connexion.html";
+    }
+
+    document.getElementById("account-btn").addEventListener("click", function(e) {
+      const raw = sessionStorage.getItem("utilisateur");
+      if (!raw) return;
+      e.preventDefault();
+      document.getElementById("account-wrap").classList.toggle("open");
+    });
+
+    document.addEventListener("click", function(e) {
+      if (!document.getElementById("account-wrap").contains(e.target)) {
+        document.getElementById("account-wrap").classList.remove("open");
+      }
+    });
+
+    majBoutonCompte();
+
+    //Logo → retour page principale 
+    function allerAccueil() {
+      document.getElementById("iframe-contenu").src = "tout.html";
+    }
+
+    window.addEventListener("message", function(e) {
+      if (e.data && e.data.type === "utilisateur-connecte") {
+        sessionStorage.setItem("utilisateur", JSON.stringify(e.data.utilisateur));
+        majBoutonCompte();
+      }
+    });
   </script>
 </body>
 </html>

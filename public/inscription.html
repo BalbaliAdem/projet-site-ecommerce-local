@@ -228,9 +228,7 @@
       animation: spin .6s linear infinite;
     }
 
-    /* ════════════════════════════════════════════
-       SUCCESS OVERLAY
-    ════════════════════════════════════════════ */
+    /*  SUCCESS OVERLAY */
     .success-overlay {
       display: none;
       flex-direction: column;
@@ -324,7 +322,7 @@
 
 <div class="card">
 
-  <!-- ══ FORM SECTION ══════════════════════════════════════ -->
+  <!-- FORM SECTION-->
   <div id="form-section">
 
     <!-- Brand strip -->
@@ -451,7 +449,7 @@
   </div><!-- /form-section -->
 
 
-  <!-- ══ SUCCESS SECTION ══════════════════════════════════ -->
+  <!-- SUCCESS SECTION -->
   <div class="success-overlay" id="success-section">
     <div class="success-icon-wrap">
       <i class="ti ti-circle-check"></i>
@@ -474,9 +472,8 @@
 
 
 <script>
-  /* ═══════════════════════════════════════════════════════
-     HELPERS
-  ═══════════════════════════════════════════════════════ */
+  /* HELPERS
+   */
   function setError(fieldId, message) {
     const input = document.getElementById(fieldId);
     const msg   = document.getElementById('err-' + fieldId);
@@ -504,9 +501,7 @@
     document.getElementById('server-error').classList.remove('visible');
   }
 
-  /* ═══════════════════════════════════════════════════════
-     FORCE DU MOT DE PASSE
-  ═══════════════════════════════════════════════════════ */
+  /*  FORCE DU MOT DE PASSE */
   function evaluerForce() {
     const val  = document.getElementById('mdp').value;
     const fill = document.getElementById('strength-fill');
@@ -539,9 +534,7 @@
     txt.style.color       = n.bg;
   }
 
-  /* ═══════════════════════════════════════════════════════
-     TOGGLE VISIBILITÉ MOT DE PASSE
-  ═══════════════════════════════════════════════════════ */
+  /* TOGGLE VISIBILITÉ MOT DE PASSE */
   function toggleVisibilite(inputId, iconId) {
     const input = document.getElementById(inputId);
     const icon  = document.getElementById(iconId);
@@ -554,9 +547,7 @@
     }
   }
 
-  /* ═══════════════════════════════════════════════════════
-     VALIDATION FORMULAIRE
-  ═══════════════════════════════════════════════════════ */
+  /* VALIDATION FORMULAIRE */
   function valider() {
     let estValide = true;
 
@@ -601,9 +592,7 @@
     return estValide;
   }
 
-  /* ═══════════════════════════════════════════════════════
-     SOUMISSION
-  ═══════════════════════════════════════════════════════ */
+  /* SOUMISSION*/
   async function soumettre() {
     hideServerError();
 
