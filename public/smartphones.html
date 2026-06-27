@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/buttons.css">
     <script src="js/script.js"></script>
+<<<<<<< HEAD
     <style>
       /* ─── Badge stock global (toujours visible) ─── */
       .badge-stock {
@@ -51,6 +52,9 @@
       #ps4 { width: 50%; }
       #A56 { width: 65%; height: 65%; }
     </style>
+=======
+    <script src="stock.js"></script>
+>>>>>>> 32562a80719a4f4b451bd6cd80e3c8dc7a657226
 </head>
 <body>
 <div class="produits-grid">
@@ -128,6 +132,7 @@
   </div>
 
 </div>
+<<<<<<< HEAD
 
 <script>
 document.querySelectorAll('.pc[data-id]').forEach(async carte => {
@@ -258,6 +263,18 @@ async function ajouterAuPanierSmartphones(id, nom, prix, img) {
   } catch(e) {}
   ajouterAuPanier(nom, prix, img);
 }
+=======
+<style>
+    #ps4{width: 50%;}
+    #A56{width: 65%;
+    height: 65%;}
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    afficherStockProduits(11);
+  });
+>>>>>>> 32562a80719a4f4b451bd6cd80e3c8dc7a657226
 </script>
 </body>
 </html>
